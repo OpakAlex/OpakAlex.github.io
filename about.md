@@ -11,4 +11,4 @@ I have over five years of experience in the design and development of web softwa
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[opak.alexandr@gmail.com](mailto:opak.alexandr@gmail.com)
