@@ -11,6 +11,7 @@ With the local development we want: to work quickly and efficiently with the pro
 
 Let’s consider a simple project (`Rails application`), which one we want to develop on the local machine, but do not want to set: `ruby, gems, nginx, postrgesql`.
 First we need to set up a `virtual box, docker, docker-composer, docker-machine`:
+
 * `brew install virtualbox`
 * `brew install docker`
 * `brew install docker-compose`
@@ -18,6 +19,7 @@ First we need to set up a `virtual box, docker, docker-composer, docker-machine`
 * `brew install dnsmasq`
 
 The next step is to synchronize the configuration of our virtual machine and a local folder for code:
+
 * `sudo echo  “\"/Users\" 192.168.99.100 -alldirs -mapall=501:20” > /etc/exports`
 * `sudo echo “nameserver 192.168.99.100” > /etc/resolver/dev`
 * `sudo nfsd restart`
@@ -34,6 +36,7 @@ Example files: [Dockerfile](https://github.com/OpakAlex/rails-docker-nginx-examp
 [compose](https://github.com/OpakAlex/rails-docker-nginx-example/blob/master/docker-compose.yml)
 
 Let’s try to start:
+
 * `docker-compose build`
 * `docker-compose run web bundle install`
 * `docker-compose run web rake db:create`
