@@ -5,7 +5,7 @@ title: Let's do development with Docker!
 
 ## Docker with Rails - right development environment
 ***
-Working as a team, you are constantly faced with the problem of support the project infrastructure on developers mashines. When there is a small team (2-4 people), this problem is solved quickly.    
+Working as a team, you are constantly faced with the problem of supporting the project infrastructure on developers machines. When there is a small team (2-4 people), this problem is solved quickly.    
 
 The question is what to do when the number of developers increases, when the product grows or when there are remote developers? The solution is very simple and tech - to use the Docker for local development.  
 
