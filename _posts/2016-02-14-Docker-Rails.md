@@ -41,7 +41,7 @@ Example files: [Dockerfile](https://github.com/OpakAlex/rails-docker-nginx-examp
 
 Let’s try to start:
 
-* ``` docker-compose build```
+* `docker-compose build`
 * `docker-compose run web bundle install`
 * `docker-compose run web rake db:create`
 * `docker-compose up`
