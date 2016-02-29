@@ -6,7 +6,9 @@ title: Let's do development into Docker!
 ## Docker with Rails - right development environment
 ***
 Working as a team, you are constantly faced with the problem of support the project infrastructure on developers mashines. When there is a small team (2-4 people), this problem is solved quickly.    
-The question is what to do when the number of developers increases, when the product grows or when there are remote developers? The solution is very simple and tech - to use the Docker for local development.    
+
+The question is what to do when the number of developers increases, when the product grows or when there are remote developers? The solution is very simple and tech - to use the Docker for local development.  
+
 With the local development we want: to work quickly and efficiently with the project, with a minimum of time to dev ops, use your favorite code editor (for me it’s VIM), do not worry about installing of additional tools and packages. All these gives us Docker with its simplicity and convenience.
 
 Let’s consider a simple project (`Rails application`), which one we want to develop on the local machine, but do not want to set: `ruby, gems, nginx, postrgesql`.
@@ -39,7 +41,7 @@ Example files: [Dockerfile](https://github.com/OpakAlex/rails-docker-nginx-examp
 
 Let’s try to start:
 
-* `docker-compose build`
+* ``` docker-compose build```
 * `docker-compose run web bundle install`
 * `docker-compose run web rake db:create`
 * `docker-compose up`
