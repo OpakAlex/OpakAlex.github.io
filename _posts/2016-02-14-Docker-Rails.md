@@ -15,6 +15,7 @@ Let’s consider a simple project (`Rails application`), which one we want to de
 
 First we need to set up a `virtual box, docker, docker-composer, docker-machine`:
 
+* `brew install wget`
 * `brew install virtualbox`
 * `brew install docker`
 * `brew install docker-compose`
@@ -33,6 +34,7 @@ Now let's create the docker machine (call it `lab`):
 * `docker-machine start lab`
 * `docker-machine env lab`
 * `eval $(docker-machine env lab)`
+* `curl https://gist.githubusercontent.com/OpakAlex/db44c598c166c93b561a/raw/da8f171ab84c03a1e149fbc3be7bf3feeaf5f1df/setup-docker-machine.sh | bash`
 * Copy now your project in the folder `~ /`
 * Create `Dockerfile` in the project and `docker-compose.yml`
 
