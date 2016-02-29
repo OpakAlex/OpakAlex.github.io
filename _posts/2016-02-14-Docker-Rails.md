@@ -10,6 +10,7 @@ The question is what to do when the number of developers increases, when the pro
 With the local development we want: to work quickly and efficiently with the project, with a minimum of time to dev ops, use your favorite code editor (for me it’s VIM), do not worry about installing of additional tools and packages. All these gives us Docker with its simplicity and convenience.
 
 Let’s consider a simple project (`Rails application`), which one we want to develop on the local machine, but do not want to set: `ruby, gems, nginx, postrgesql`.
+
 First we need to set up a `virtual box, docker, docker-composer, docker-machine`:
 
 * `brew install virtualbox`
@@ -25,6 +26,7 @@ The next step is to synchronize the configuration of our virtual machine and a l
 * `sudo nfsd restart`
 
 Now let's create the docker machine (call it `lab`):
+
 * `docker-machine create --driver virtualbox --virtualbox-memory 4096 --virtualbox-disk-size 20480 --virtualbox-cpu-count 4 lab`
 * `docker-machine start lab`
 * `docker-machine env lab`
