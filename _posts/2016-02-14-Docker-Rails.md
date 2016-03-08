@@ -24,8 +24,8 @@ First we need to set up a `virtual box, docker, docker-composer, docker-machine`
 
 The next step is to synchronize the configuration of our virtual machine and a local folder for code:
 
-* `sudo echo  “\"/Users\" 192.168.99.100 -alldirs -mapall=501:20” > /etc/exports`
-* `sudo echo “nameserver 192.168.99.100” > /etc/resolver/dev`
+* `sudo sh -c 'echo "\"/Users\" 192.168.99.100 -alldirs -mapall=501:20" > /etc/exports'`
+* `sudo sh -c 'echo "nameserver 192.168.99.100" > /etc/resolver/dev'`
 * `sudo nfsd restart`
 
 Now let's create the docker machine (call it `lab`):
