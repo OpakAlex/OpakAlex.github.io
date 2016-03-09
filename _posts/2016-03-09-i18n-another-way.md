@@ -38,3 +38,5 @@ TRS can be used as self hosted application. To do this, you need to deploy TRS o
 
 Repo: [TRS](https://github.com/api-hogs/trs)
 
+Love example? [Try it](http://translations.api-hogs.io)
+
