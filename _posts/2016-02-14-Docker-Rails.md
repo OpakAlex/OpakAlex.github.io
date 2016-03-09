@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Let's do development with Docker!
+title: Let's develop with Docker!
 ---
 
 ## Docker with Rails - right development environment
