@@ -8,14 +8,14 @@ title: Let's do I18n!
 
  * without conflict
  * editing directly on the site
- * don't need developers for edit
- * always in the context of the page.
+ * doesn't need developers for editing
+ * always in the context of the page
   
 In our company, we often write web solutions with support for many languages, and for the correct translation it is very important to see the context of the content, so after a long search for the right and handy solution, we’ve come to TRS:
 
-1. Editing on the page of real content.
-2. Easy control of locals and the creation of new ones.
-3. The components for diffefent frameworks.
+1. Editing on the page of real content
+2. Easy control of locals and the creation of new ones
+3. The components for diffefent frameworks
 
 TRS structure consists of:
 
