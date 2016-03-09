@@ -18,6 +18,7 @@ In our company, we often write web solutions with support for many languages, an
 3. The components for diffefent frameworks.
 
 TRS structure consists of:
+
  * Administrative part
  * Server API
  * Plugins
