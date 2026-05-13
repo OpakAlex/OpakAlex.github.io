@@ -11,7 +11,7 @@ I want to introduce a new concept: **Expert-in-the-Loop (EITL)**. Instead of a h
 
 ## The Problem with Human-in-the-Loop
 
-In today's world, the phrase **"Human-in-the-Loop (HITL)"** comes up more and more often. I am against this idea. In this decision-making paradigm, the human remains the part that slows down the process, slows down decision-making, and creates a new level of performance problems in the system.
+In today's world, the phrase **["Human-in-the-Loop (HITL)"](https://en.wikipedia.org/wiki/Human-in-the-loop)** comes up more and more often. I am against this idea. In this decision-making paradigm, the human remains the part that slows down the process, slows down decision-making, and creates a new level of performance problems in the system.
 
 AI has proven its ability to work 24/7 without weekends, to analyze and process massive datasets -- but it waits for a human (an expert?) to press the approve button.
 
