@@ -15,8 +15,8 @@ From startups to established companies, from individual contributor to CTO.
 I architect and build production systems with high load, ML/AI-first architecture, and expert-in-the-loop design. I have deep experience with:
 
 - **Distributed Systems** -- Elasticsearch, Kafka, event-driven architectures
-- **Infrastructure** -- Kubernetes, Helm, Docker, CI/CD pipelines
-- **Databases** -- PostgreSQL, MySQL, CouchDB, TalonDb, Datalevin
+- **Infrastructure** -- Kubernetes, Helm, Docker, Terraform, CI/CD pipelines
+- **Databases** -- PostgreSQL, MySQL, CouchDB, TalonDb, Datalevin, Weaviate
 - **Functional Programming** -- Elixir/OTP, Rust
 - **OOP Programming** -- Ruby, Crystal, C#, Java, Python, JavaScript, TypeScript
 - **Systems/Scripting** -- Go, Lua
