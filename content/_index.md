@@ -19,7 +19,7 @@ I architect and build production systems with high load, ML/AI-first architectur
 - **Databases** -- PostgreSQL, MySQL, CouchDB, TalonDb, Datalevin, Weaviate
 - **Functional Programming** -- Elixir/OTP, Rust
 - **OOP Programming** -- Ruby, Crystal, C#, Java, Python, JavaScript, TypeScript
-- **Systems/Scripting** -- Go, Lua
+- **Systems/Scripting** -- Go, Lua, Painless (Elasticsearch)
 - **Expert System Programming** -- Prolog, Datalog, Talon
 - **AI Orchestration Enterprise System** -- OpenTalon
 
