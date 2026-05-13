@@ -1,0 +1,53 @@
+baseURL = "https://opakalex.github.io/"
+locale = "en-us"
+title = "Alex Opak | Software Architect"
+theme = "PaperMod"
+paginate = 5
+
+[params]
+  env = "production"
+  description = "Software Architect based in Zurich. 15+ years of experience in Ruby, Elixir, JavaScript, and distributed systems."
+  author = "Alex Opak"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+
+  hideSocialInFooter = true
+
+[params.cover]
+  hidden = false
+  hiddenInList = false
+  hiddenInSingle = true
+
+[menu]
+  [[menu.main]]
+    identifier = "blog"
+    name = "Blog"
+    url = "/posts/"
+    weight = 10
+
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "OSS Projects"
+    url = "/projects/"
+    weight = 30
+
+
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 50
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
