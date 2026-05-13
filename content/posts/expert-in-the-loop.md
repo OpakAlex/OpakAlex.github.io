@@ -33,7 +33,7 @@ It proposes removing the human from decision-making entirely.
 
 Madness? Perhaps. But well-described rules that rely on documentation, that can be verified, and that are written by humans -- are far more effective than the humans themselves. They don't need rest. They don't need vacations.
 
-Let's take our example above. 3-4 senior engineers describe how code review should work using clear rules. For example:
+Let's take our example above. 3-4 senior engineers describe how code review should work using clear rules. For example ([Talon language](https://github.com/opentalon/talon-language)):
 
 ```talon
 define "small_change" {
