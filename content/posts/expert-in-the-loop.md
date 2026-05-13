@@ -183,6 +183,6 @@ Financial compliance is perhaps the most obvious application. Anti-money launder
 
 The core insight is this: LLMs are powerful tools for understanding and generating language, for pattern recognition and data processing. But they are fundamentally probabilistic -- they predict the most likely next token, not the correct answer. Expert systems are the opposite. They are deterministic -- given the same inputs and rules, they always produce the same output. Combining the two creates something neither can achieve alone: a system that understands the messy, unstructured real world through AI, and makes precise, auditable, guaranteed-correct decisions through expert rules. That is what Expert-in-the-Loop (EITL) is about.
 
----
+## Further Reading
 
-*Further reading: [Expert in the Loop: Why AI Needs Specialists, Not Just Humans](https://medium.com/@ai_93276/expert-in-the-loop-why-ai-needs-specialists-not-just-humans-5797b6500654)*
+- [Expert in the Loop: Why AI Needs Specialists, Not Just Humans](https://medium.com/@ai_93276/expert-in-the-loop-why-ai-needs-specialists-not-just-humans-5797b6500654)
