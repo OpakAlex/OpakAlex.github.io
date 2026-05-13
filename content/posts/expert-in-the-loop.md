@@ -1,5 +1,5 @@
 ---
-title: "Expert-in-the-Loop"
+title: "Expert-in-the-Loop (EITL)"
 date: 2026-05-13
 draft: false
 tags: ["AI", "architecture", "expert systems", "Talon", "LLM"]
