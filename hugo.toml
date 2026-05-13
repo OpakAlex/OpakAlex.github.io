@@ -18,6 +18,12 @@ paginate = 5
 
   hideSocialInFooter = true
 
+  [params.assets]
+    favicon = "/favicon.svg"
+    favicon16x16 = "/favicon.svg"
+    favicon32x32 = "/favicon.svg"
+    apple_touch_icon = "/favicon.svg"
+
 [params.cover]
   hidden = false
   hiddenInList = false
