@@ -6,7 +6,7 @@ ShowToc: false
 
 ## Who I Am
 
-I'm Alex Opak, a Software Architect based in Zurich, Switzerland. Creator of [OpenTalon](https://github.com/opentalon/opentalon), an AI enterprise orchestration eco system, and the [Talon](https://github.com/opentalon/talon-language) expert system programming language. With over 15 years of experience in software design and development, I specialize in building scalable, high-availability systems.
+I'm Alex Opak, a Software Architect based in Zurich, Switzerland. Creator of [OpenTalon](https://github.com/opentalon/opentalon), an AI enterprise orchestration eco system, the [Talon](https://github.com/opentalon/talon-language) expert system programming language, and the [Expert-in-the-Loop (EITL)](/posts/expert-in-the-loop/) paradigm. With over 15 years of experience in software design and development, I specialize in building scalable, high-availability systems.
 
 From startups to established companies, from individual contributor to CTO.
 
