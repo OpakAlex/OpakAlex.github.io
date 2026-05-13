@@ -1,8 +1,8 @@
 ---
-title: "Expert-in-the-Loop (EITL)"
+title: "Expert in the Loop (EITL)"
 date: 2026-05-13
 draft: false
-tags: ["AI", "architecture", "expert systems", "Talon", "LLM"]
+tags: ["AI", "architecture", "expert systems", "Talon", "LLM", "EITL"]
 summary: "Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop (EITL) with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making."
 ShowToc: true
 ---
@@ -182,3 +182,7 @@ Legal contract review follows the same pattern. An LLM can read a 200-page contr
 Financial compliance is perhaps the most obvious application. Anti-money laundering, KYC verification, transaction monitoring -- these processes require both the pattern recognition that AI provides and the deterministic rule enforcement that regulations demand. An LLM might flag a suspicious transaction. But the decision to block it, report it, or escalate it must follow exact regulatory rules. There's no room for "probably" in compliance.
 
 The core insight is this: LLMs are powerful tools for understanding and generating language, for pattern recognition and data processing. But they are fundamentally probabilistic -- they predict the most likely next token, not the correct answer. Expert systems are the opposite. They are deterministic -- given the same inputs and rules, they always produce the same output. Combining the two creates something neither can achieve alone: a system that understands the messy, unstructured real world through AI, and makes precise, auditable, guaranteed-correct decisions through expert rules. That is what Expert-in-the-Loop (EITL) is about.
+
+---
+
+*Further reading: [Expert in the Loop: Why AI Needs Specialists, Not Just Humans](https://medium.com/@ai_93276/expert-in-the-loop-why-ai-needs-specialists-not-just-humans-5797b6500654)*
