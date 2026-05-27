@@ -23,6 +23,46 @@ At this stage of computer engineering and the LLM boom, people have forgotten th
 
 The deeper I go into the world of expert systems, the more I understand the weight of responsibility for decision-making -- and the philosophical pragmatism of delegating that responsibility to a machine.
 
+## Why the Decision Was Made
+
+A major benefit of an expert system is the ability to understand *why* a particular decision was made. It is not an LLM hallucinating about whether a mushroom is edible or not, with the answer shifting on the next retry.
+
+![AI confidently telling a human a poisonous mushroom is edible, then apologizing after the human is dead](/images/ai-mushroom-meme.jpeg)
+
+An expert system, by contrast, knows exactly which facts it is reasoning from. It does not improvise. It looks the mushroom up.
+
+![Expert system explaining the natural toxins in a mushroom -- muscarine, ibotenic acid, muscimol -- and the cooking conditions that neutralize them](/images/expert-system-mushroom-facts.png)
+
+Those facts live in the system as data, not as vibes:
+
+```talon
+fact "amanita_muscaria" {
+  common_name = "Fly Agaric"
+  edible = "conditional"
+  toxins = ["muscarine", "ibotenic_acid", "muscimol"]
+  heat_sensitive = true
+  safe_when = "boiled or sautéed for 15+ minutes"
+  warning = "Do not eat raw or undercooked"
+}
+
+rule "Refuse to recommend without identification" {
+  when "mushroom.species" == "unknown"
+  do block "consumption"
+  do explain "Species must be 100% identified before consumption"
+}
+
+rule "Block unsafe preparation" {
+  when "mushroom.toxins" not_empty
+    and "preparation.heat_treated" == false
+  do block "consumption"
+  do explain "mushroom.warning"
+}
+```
+
+An expert system can always justify its choice -- it can point to the exact rule that fired, the exact facts that triggered it, the exact thresholds that were crossed.
+
+And that is what decision-making really is. A decision cannot rest on randomness. It must be backed by facts.
+
 ## A Concrete Example: Warehouse Replenishment
 
 Let's look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the [Talon language](https://github.com/opentalon/talon-language).
