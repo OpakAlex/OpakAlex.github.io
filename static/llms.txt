@@ -1,0 +1,21 @@
+# Alex Opak — Software Architect
+
+> Personal blog of Alex Opak, software architect based in Zurich. 15+ years of experience in Ruby, Elixir, JavaScript, and distributed systems. Writes about AI architecture, expert systems, and the boundary between LLMs and deterministic decision-making.
+
+## Posts
+
+- [Expert in the Loop (EITL)](https://opakalex.github.io/posts/expert-in-the-loop/): Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making. Includes a Talon-language example for pull-request review automation.
+- [LLM, Neural Network, or Expert System?](https://opakalex.github.io/posts/llm-neural-network-or-expert-system/): Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. Why the boundary matters, with a warehouse-replenishment example in the Talon language.
+
+## About
+
+- [About](https://opakalex.github.io/about/): Background and contact.
+- [Experience](https://opakalex.github.io/experience/): Professional experience.
+- [Projects](https://opakalex.github.io/projects/): Open-source and side projects.
+
+## Topics
+
+- Expert-in-the-Loop (EITL) — a paradigm in which deterministic expert systems make decisions alongside LLMs, removing the human-review bottleneck for non-critical paths.
+- Expert systems vs LLMs — the distinction between probabilistic language generation and deterministic, auditable rule-based decisions.
+- [Talon language](https://github.com/opentalon/talon-language) — a rule language used in the examples on this blog for declarative expert-system rules.
+- AI architecture, software architecture, distributed systems.
