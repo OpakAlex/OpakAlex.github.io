@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>LLM, Neural Network, or Expert System? | Alex Opak | Software Architect</title>
+<meta name="keywords" content="AI, expert systems, Talon, LLM, neural networks">
+<meta name="description" content="Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters &ndash; and how the real world runs on it.">
+<meta name="author" content="Alex Opak">
+<link rel="canonical" href="http://localhost:1313/posts/llm-neural-network-or-expert-system/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.svg">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.svg">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.svg">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/llm-neural-network-or-expert-system/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/llm-neural-network-or-expert-system/">
+  <meta property="og:site_name" content="Alex Opak | Software Architect">
+  <meta property="og:title" content="LLM, Neural Network, or Expert System?">
+  <meta property="og:description" content="Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters – and how the real world runs on it.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-27T00:00:00+00:00">
+    <meta property="article:tag" content="AI">
+    <meta property="article:tag" content="Expert Systems">
+    <meta property="article:tag" content="Talon">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Neural Networks">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LLM, Neural Network, or Expert System?">
+  <meta name="twitter:description" content="Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters – and how the real world runs on it.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "LLM, Neural Network, or Expert System?",
+      "item": "http://localhost:1313/posts/llm-neural-network-or-expert-system/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLM, Neural Network, or Expert System?",
+  "name": "LLM, Neural Network, or Expert System?",
+  "description": "Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters \u0026ndash; and how the real world runs on it.",
+  "keywords": [
+    "AI", "expert systems", "Talon", "LLM", "neural networks"
+  ],
+  "articleBody": "LLMs, artificial neural networks, or expert systems? An excellent question with no single answer. Each of us has, at some point, felt like an all-knowing “god” by opening a paid LLM tool – ChatGPT, Claude, Cursor, Gemini, take your pick – and asking about our health, software architecture, or what to wear on a date. A familiar scene? The catch is that each of these systems can give radically different “advice.”\nIf we take LLMs as the baseline, their job is to generate coherent, logical text. Finding patterns and recurring regularities, analyzing images, and so on – these are tasks of artificial neural networks. So what is left for expert systems?\nIn my view, expert systems should make decisions: based on the knowledge supplied by LLMs and the patterns surfaced by neural networks. Making a decision is part of the final work of any system. Of course, one could argue that LLMs can also make decisions – and that’s partly true. But would we trust an LLM to fly the plane during our vacation? I think the answer is unequivocally no. And yet 90% of flights are conducted on autopilot. Who is flying? Who is deciding? The obvious answer is math, calculations, physics – but that’s only 50% of the truth. The other 50% is expert knowledge, i.e., rules. How does a typical expert system work? It’s a set of rules and decisions applied at a specific moment, based on specific data.\nWho Actually Makes the Decision? Let me return to the author’s definition of what expert systems should do. Of course, anyone with 10+ LLM chats open at once will tell you that they are the one making the decisions. True. But what kind of decision? The decision of what to wear on a date? The decision of which pill to take at night? The decision of what to deploy to production?\nThese are radically different decisions. And as my experience tells me, decisions on critical matters – or questions that touch the business – are not made by a human with LLM suggestions. They are made by experts in the field. Otherwise, the business would incur enormous losses.\nAt this stage of computer engineering and the LLM boom, people have forgotten that many systems have lived hand in hand with us for decades. They help us get to work, pay our bills, prevent credit card fraud. These systems exist. They are niche, less visible, you can’t hold a conversation with them the way you can with an LLM, they don’t bestow “divine knowledge” on their creators – but without them there would be chaos.\nThe deeper I go into the world of expert systems, the more I understand the weight of responsibility for decision-making – and the philosophical pragmatism of delegating that responsibility to a machine.\nWhy the Decision Was Made A major benefit of an expert system is the ability to understand why a particular decision was made. It is not an LLM hallucinating about whether a mushroom is edible or not, with the answer shifting on the next retry.\nAn expert system, by contrast, knows exactly which facts it is reasoning from. It does not improvise. It looks the mushroom up.\nThose facts live in the system as data, not as vibes:\nfact \"amanita_muscaria\" { common_name = \"Fly Agaric\" edible = \"conditional\" toxins = [\"muscarine\", \"ibotenic_acid\", \"muscimol\"] heat_sensitive = true safe_when = \"boiled or sautéed for 15+ minutes\" warning = \"Do not eat raw or undercooked\" } rule \"Refuse to recommend without identification\" { when \"mushroom.species\" == \"unknown\" do block \"consumption\" do explain \"Species must be 100% identified before consumption\" } rule \"Block unsafe preparation\" { when \"mushroom.toxins\" not_empty and \"preparation.heat_treated\" == false do block \"consumption\" do explain \"mushroom.warning\" } An expert system can always justify its choice – it can point to the exact rule that fired, the exact facts that triggered it, the exact thresholds that were crossed.\nAnd that is what decision-making really is. A decision cannot rest on randomness. It must be backed by facts.\nA Concrete Example: Warehouse Replenishment Let’s look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the Talon language.\nImagine an online retailer with thousands of SKUs flowing through a distribution center. The system watches stock levels, incoming orders, supplier availability, and seasonal patterns. When inventory dips below a threshold, the system decides on its own whether to place an order, with which supplier, for what quantity – and when to pull a human into the loop.\ndefine \"low_stock\" { \"item.quantity_on_hand\" \u003c \"item.reorder_threshold\" } define \"critical_stock\" { \"item.quantity_on_hand\" \u003c \"item.safety_stock\" } define \"demand_spike\" { \"item.orders_last_7_days\" \u003e \"item.weekly_average\" * 1.5 } define \"supplier_available\" { \"supplier.preferred.in_stock\" == true and \"supplier.preferred.lead_time_days\" \u003c= \"item.max_lead_time\" } define \"perishable\" { \"item.shelf_life_days\" \u003c 30 } define \"seasonal_peak\" { \"calendar.month\" in [\"11\", \"12\"] and \"item.category\" == \"holiday\" } // ── Routine reorder ───────────────────────────────────── rule \"Reorder when stock falls below threshold\" { when is \"low_stock\" and not is \"critical_stock\" and is \"supplier_available\" do calculate \"order.quantity\" \"item.economic_order_quantity\" do create_order \"supplier.preferred\" \"item.sku\" \"order.quantity\" do notify \"team.procurement\" \"order.id\" } // ── Emergency reorder ─────────────────────────────────── rule \"Emergency reorder when stock hits safety level\" { when is \"critical_stock\" do calculate \"order.quantity\" \"item.economic_order_quantity\" * 2 do create_order \"supplier.fastest\" \"item.sku\" \"order.quantity\" do notify \"team.warehouse_manager\" \"item.sku\" do comment \"order\" \"Stock below safety threshold — expedited supplier selected\" } // ── Demand-driven adjustments ─────────────────────────── rule \"Scale order up on demand spike\" { when is \"demand_spike\" and is \"low_stock\" do calculate \"order.quantity\" \"item.economic_order_quantity\" * 1.5 do create_order \"supplier.preferred\" \"item.sku\" \"order.quantity\" do comment \"order\" \"Demand exceeded weekly average by 50%+\" } // ── Supplier selection ────────────────────────────────── rule \"Switch supplier when preferred is unavailable\" { when is \"low_stock\" and \"supplier.preferred.in_stock\" == false do select_supplier \"item.sku\" by \"lowest_price_within_lead_time\" do create_order \"supplier.selected\" \"item.sku\" \"order.quantity\" do comment \"order\" \"Preferred supplier out of stock — switched to alternate\" } // ── Perishables — no overstock ────────────────────────── rule \"Limit perishable orders to forecast window\" { when is \"low_stock\" and is \"perishable\" do calculate \"order.quantity\" \"item.forecasted_demand_14_days\" do create_order \"supplier.preferred\" \"item.sku\" \"order.quantity\" } // ── Seasonal stocking ─────────────────────────────────── rule \"Pre-stock seasonal items before peak\" { when is \"seasonal_peak\" and \"item.quantity_on_hand\" \u003c \"item.seasonal_target\" do calculate \"order.quantity\" \"item.seasonal_target\" - \"item.quantity_on_hand\" do create_order \"supplier.preferred\" \"item.sku\" \"order.quantity\" do notify \"team.procurement\" \"order.id\" } // ── Human gates ───────────────────────────────────────── rule \"Require approval for unusually large orders\" { when \"order.total_value\" \u003e 50000 do hold_order \"order.id\" do require \"approval.warehouse_director\" do comment \"order\" \"Order value exceeds $50,000 — director approval required\" } rule \"Flag suspicious demand patterns\" { when \"item.orders_last_24_hours\" \u003e \"item.daily_average\" * 5 do hold_order \"item.sku\" do require \"review.fraud_team\" do comment \"item\" \"Unusual order velocity — possible fraud or pricing error\" } The LLM cannot run this. A neural network alone cannot run this. What runs the warehouse is a set of explicit, auditable rules written by people who understand procurement, lead times, and cash flow.\nThe LLM may help draft those rules, summarize a supplier contract, or explain a demand spike in plain language. The neural network may forecast next month’s demand based on historical patterns. But the decision – whether to place a $20,000 order at 2 AM on a Sunday – belongs to the expert system. And that is precisely where it belongs.\nThe Boundary LLMs are probabilistic. They predict the most likely next token, not the correct answer. Neural networks find patterns in data, but they don’t know what those patterns mean for the business. Expert systems are deterministic: given the same inputs and rules, they produce the same output, every time, at any hour, under any load.\nThe mistake of the current LLM boom is treating language models as if they could replace the layer underneath – the layer of rules, constraints, and accountability. They can’t. They were never built to. The right architecture is to let each tool do what it’s actually good at: language to the LLM, patterns to the neural network, and decisions to the expert system.\n",
+  "wordCount" : "1320",
+  "inLanguage": "en",
+  "datePublished": "2026-05-27T00:00:00Z",
+  "dateModified": "2026-05-27T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Alex Opak"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/llm-neural-network-or-expert-system/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alex Opak | Software Architect",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.svg"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Alex Opak | Software Architect (Alt + H)">Alex Opak | Software Architect</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/projects/" title="OSS Projects">
+                    <span>OSS Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      LLM, Neural Network, or Expert System?
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-05-27 00:00:00 +0000 UTC'>May 27, 2026</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>Alex Opak</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#who-actually-makes-the-decision" aria-label="Who Actually Makes the Decision?">Who Actually Makes the Decision?</a></li>
+            <li>
+                <a href="#why-the-decision-was-made" aria-label="Why the Decision Was Made">Why the Decision Was Made</a></li>
+            <li>
+                <a href="#a-concrete-example-warehouse-replenishment" aria-label="A Concrete Example: Warehouse Replenishment">A Concrete Example: Warehouse Replenishment</a></li>
+            <li>
+                <a href="#the-boundary" aria-label="The Boundary">The Boundary</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>LLMs, artificial neural networks, or expert systems? An excellent question with no single answer. Each of us has, at some point, felt like an all-knowing &ldquo;god&rdquo; by opening a paid LLM tool &ndash; ChatGPT, Claude, Cursor, Gemini, take your pick &ndash; and asking about our health, software architecture, or what to wear on a date. A familiar scene? The catch is that each of these systems can give radically different &ldquo;advice.&rdquo;</p>
+<p>If we take LLMs as the baseline, their job is to generate coherent, logical text. Finding patterns and recurring regularities, analyzing images, and so on &ndash; these are tasks of artificial neural networks. So what is left for expert systems?</p>
+<p>In my view, expert systems should make decisions: based on the knowledge supplied by LLMs and the patterns surfaced by neural networks. Making a decision is part of the final work of any system. Of course, one could argue that LLMs can also make decisions &ndash; and that&rsquo;s partly true. But would we trust an LLM to fly the plane during our vacation? I think the answer is unequivocally no. And yet 90% of flights are conducted on autopilot. Who is flying? Who is deciding? The obvious answer is math, calculations, physics &ndash; but that&rsquo;s only 50% of the truth. The other 50% is expert knowledge, i.e., rules. How does a typical expert system work? It&rsquo;s a set of rules and decisions applied at a specific moment, based on specific data.</p>
+<h2 id="who-actually-makes-the-decision">Who Actually Makes the Decision?<a hidden class="anchor" aria-hidden="true" href="#who-actually-makes-the-decision">#</a></h2>
+<p>Let me return to the author&rsquo;s definition of what expert systems should do. Of course, anyone with 10+ LLM chats open at once will tell you that <em>they</em> are the one making the decisions. True. But what kind of decision? The decision of what to wear on a date? The decision of which pill to take at night? The decision of what to deploy to production?</p>
+<p>These are radically different decisions. And as my experience tells me, decisions on critical matters &ndash; or questions that touch the business &ndash; are not made by a human with LLM suggestions. They are made by experts in the field. Otherwise, the business would incur enormous losses.</p>
+<p>At this stage of computer engineering and the LLM boom, people have forgotten that many systems have lived hand in hand with us for decades. They help us get to work, pay our bills, prevent credit card fraud. These systems exist. They are niche, less visible, you can&rsquo;t hold a conversation with them the way you can with an LLM, they don&rsquo;t bestow &ldquo;divine knowledge&rdquo; on their creators &ndash; but without them there would be chaos.</p>
+<p>The deeper I go into the world of expert systems, the more I understand the weight of responsibility for decision-making &ndash; and the philosophical pragmatism of delegating that responsibility to a machine.</p>
+<h2 id="why-the-decision-was-made">Why the Decision Was Made<a hidden class="anchor" aria-hidden="true" href="#why-the-decision-was-made">#</a></h2>
+<p>A major benefit of an expert system is the ability to understand <em>why</em> a particular decision was made. It is not an LLM hallucinating about whether a mushroom is edible or not, with the answer shifting on the next retry.</p>
+<p><img alt="AI confidently telling a human a poisonous mushroom is edible, then apologizing after the human is dead" loading="lazy" src="/images/ai-mushroom-meme.jpeg"></p>
+<p>An expert system, by contrast, knows exactly which facts it is reasoning from. It does not improvise. It looks the mushroom up.</p>
+<p><img alt="Expert system explaining the natural toxins in a mushroom &ndash; muscarine, ibotenic acid, muscimol &ndash; and the cooking conditions that neutralize them" loading="lazy" src="/images/expert-system-mushroom-facts.png"></p>
+<p>Those facts live in the system as data, not as vibes:</p>
+<pre tabindex="0"><code class="language-talon" data-lang="talon">fact &#34;amanita_muscaria&#34; {
+  common_name = &#34;Fly Agaric&#34;
+  edible = &#34;conditional&#34;
+  toxins = [&#34;muscarine&#34;, &#34;ibotenic_acid&#34;, &#34;muscimol&#34;]
+  heat_sensitive = true
+  safe_when = &#34;boiled or sautéed for 15+ minutes&#34;
+  warning = &#34;Do not eat raw or undercooked&#34;
+}
+
+rule &#34;Refuse to recommend without identification&#34; {
+  when &#34;mushroom.species&#34; == &#34;unknown&#34;
+  do block &#34;consumption&#34;
+  do explain &#34;Species must be 100% identified before consumption&#34;
+}
+
+rule &#34;Block unsafe preparation&#34; {
+  when &#34;mushroom.toxins&#34; not_empty
+    and &#34;preparation.heat_treated&#34; == false
+  do block &#34;consumption&#34;
+  do explain &#34;mushroom.warning&#34;
+}
+</code></pre><p>An expert system can always justify its choice &ndash; it can point to the exact rule that fired, the exact facts that triggered it, the exact thresholds that were crossed.</p>
+<p>And that is what decision-making really is. A decision cannot rest on randomness. It must be backed by facts.</p>
+<h2 id="a-concrete-example-warehouse-replenishment">A Concrete Example: Warehouse Replenishment<a hidden class="anchor" aria-hidden="true" href="#a-concrete-example-warehouse-replenishment">#</a></h2>
+<p>Let&rsquo;s look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the <a href="https://github.com/opentalon/talon-language">Talon language</a>.</p>
+<p>Imagine an online retailer with thousands of SKUs flowing through a distribution center. The system watches stock levels, incoming orders, supplier availability, and seasonal patterns. When inventory dips below a threshold, the system decides on its own whether to place an order, with which supplier, for what quantity &ndash; and when to pull a human into the loop.</p>
+<pre tabindex="0"><code class="language-talon" data-lang="talon">define &#34;low_stock&#34; {
+  &#34;item.quantity_on_hand&#34; &lt; &#34;item.reorder_threshold&#34;
+}
+
+define &#34;critical_stock&#34; {
+  &#34;item.quantity_on_hand&#34; &lt; &#34;item.safety_stock&#34;
+}
+
+define &#34;demand_spike&#34; {
+  &#34;item.orders_last_7_days&#34; &gt; &#34;item.weekly_average&#34; * 1.5
+}
+
+define &#34;supplier_available&#34; {
+  &#34;supplier.preferred.in_stock&#34; == true
+    and &#34;supplier.preferred.lead_time_days&#34; &lt;= &#34;item.max_lead_time&#34;
+}
+
+define &#34;perishable&#34; {
+  &#34;item.shelf_life_days&#34; &lt; 30
+}
+
+define &#34;seasonal_peak&#34; {
+  &#34;calendar.month&#34; in [&#34;11&#34;, &#34;12&#34;]
+    and &#34;item.category&#34; == &#34;holiday&#34;
+}
+
+// ── Routine reorder ─────────────────────────────────────
+
+rule &#34;Reorder when stock falls below threshold&#34; {
+  when is &#34;low_stock&#34;
+    and not is &#34;critical_stock&#34;
+    and is &#34;supplier_available&#34;
+  do calculate &#34;order.quantity&#34; &#34;item.economic_order_quantity&#34;
+  do create_order &#34;supplier.preferred&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+  do notify &#34;team.procurement&#34; &#34;order.id&#34;
+}
+
+// ── Emergency reorder ───────────────────────────────────
+
+rule &#34;Emergency reorder when stock hits safety level&#34; {
+  when is &#34;critical_stock&#34;
+  do calculate &#34;order.quantity&#34; &#34;item.economic_order_quantity&#34; * 2
+  do create_order &#34;supplier.fastest&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+  do notify &#34;team.warehouse_manager&#34; &#34;item.sku&#34;
+  do comment &#34;order&#34; &#34;Stock below safety threshold — expedited supplier selected&#34;
+}
+
+// ── Demand-driven adjustments ───────────────────────────
+
+rule &#34;Scale order up on demand spike&#34; {
+  when is &#34;demand_spike&#34;
+    and is &#34;low_stock&#34;
+  do calculate &#34;order.quantity&#34; &#34;item.economic_order_quantity&#34; * 1.5
+  do create_order &#34;supplier.preferred&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+  do comment &#34;order&#34; &#34;Demand exceeded weekly average by 50%+&#34;
+}
+
+// ── Supplier selection ──────────────────────────────────
+
+rule &#34;Switch supplier when preferred is unavailable&#34; {
+  when is &#34;low_stock&#34;
+    and &#34;supplier.preferred.in_stock&#34; == false
+  do select_supplier &#34;item.sku&#34; by &#34;lowest_price_within_lead_time&#34;
+  do create_order &#34;supplier.selected&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+  do comment &#34;order&#34; &#34;Preferred supplier out of stock — switched to alternate&#34;
+}
+
+// ── Perishables — no overstock ──────────────────────────
+
+rule &#34;Limit perishable orders to forecast window&#34; {
+  when is &#34;low_stock&#34;
+    and is &#34;perishable&#34;
+  do calculate &#34;order.quantity&#34; &#34;item.forecasted_demand_14_days&#34;
+  do create_order &#34;supplier.preferred&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+}
+
+// ── Seasonal stocking ───────────────────────────────────
+
+rule &#34;Pre-stock seasonal items before peak&#34; {
+  when is &#34;seasonal_peak&#34;
+    and &#34;item.quantity_on_hand&#34; &lt; &#34;item.seasonal_target&#34;
+  do calculate &#34;order.quantity&#34; &#34;item.seasonal_target&#34; - &#34;item.quantity_on_hand&#34;
+  do create_order &#34;supplier.preferred&#34; &#34;item.sku&#34; &#34;order.quantity&#34;
+  do notify &#34;team.procurement&#34; &#34;order.id&#34;
+}
+
+// ── Human gates ─────────────────────────────────────────
+
+rule &#34;Require approval for unusually large orders&#34; {
+  when &#34;order.total_value&#34; &gt; 50000
+  do hold_order &#34;order.id&#34;
+  do require &#34;approval.warehouse_director&#34;
+  do comment &#34;order&#34; &#34;Order value exceeds $50,000 — director approval required&#34;
+}
+
+rule &#34;Flag suspicious demand patterns&#34; {
+  when &#34;item.orders_last_24_hours&#34; &gt; &#34;item.daily_average&#34; * 5
+  do hold_order &#34;item.sku&#34;
+  do require &#34;review.fraud_team&#34;
+  do comment &#34;item&#34; &#34;Unusual order velocity — possible fraud or pricing error&#34;
+}
+</code></pre><p>The LLM cannot run this. A neural network alone cannot run this. What runs the warehouse is a set of explicit, auditable rules written by people who understand procurement, lead times, and cash flow.</p>
+<p>The LLM may help draft those rules, summarize a supplier contract, or explain a demand spike in plain language. The neural network may forecast next month&rsquo;s demand based on historical patterns. But the <em>decision</em> &ndash; whether to place a $20,000 order at 2 AM on a Sunday &ndash; belongs to the expert system. And that is precisely where it belongs.</p>
+<h2 id="the-boundary">The Boundary<a hidden class="anchor" aria-hidden="true" href="#the-boundary">#</a></h2>
+<p>LLMs are probabilistic. They predict the most likely next token, not the correct answer. Neural networks find patterns in data, but they don&rsquo;t know what those patterns mean for the business. Expert systems are deterministic: given the same inputs and rules, they produce the same output, every time, at any hour, under any load.</p>
+<p>The mistake of the current LLM boom is treating language models as if they could replace the layer underneath &ndash; the layer of rules, constraints, and accountability. They can&rsquo;t. They were never built to. The right architecture is to let each tool do what it&rsquo;s actually good at: language to the LLM, patterns to the neural network, and decisions to the expert system.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/ai/">AI</a></li>
+      <li><a href="http://localhost:1313/tags/expert-systems/">Expert Systems</a></li>
+      <li><a href="http://localhost:1313/tags/talon/">Talon</a></li>
+      <li><a href="http://localhost:1313/tags/llm/">LLM</a></li>
+      <li><a href="http://localhost:1313/tags/neural-networks/">Neural Networks</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/enterprise-ai-orchestration/">
+    <span class="title">« Prev</span>
+    <span>Enterprise AI Orchestration</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/expert-in-the-loop/">
+    <span class="title">Next »</span>
+    <span>Expert in the Loop (EITL)</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Alex Opak | Software Architect</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
