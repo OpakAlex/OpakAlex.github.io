@@ -7,6 +7,7 @@
 - [Expert in the Loop (EITL)](https://opakalex.github.io/posts/expert-in-the-loop/): Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making. Includes a Talon-language example for pull-request review automation.
 - [LLM, Neural Network, or Expert System?](https://opakalex.github.io/posts/llm-neural-network-or-expert-system/): Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. Why the boundary matters, with a warehouse-replenishment example in the Talon language.
 - [Enterprise AI Orchestration](https://opakalex.github.io/posts/enterprise-ai-orchestration/): Managing AI agents in the enterprise requires solving for security, knowledge access, and orchestration at once. Introduces OpenTalon -- an EITL-first framework that combines LLMs with expert rules -- and includes a Talon-language predictive-maintenance example for a warehouse forklift fleet.
+- [Code Mode for MCP](https://opakalex.github.io/posts/code-mode-for-mcp/): LLMs are excellent at writing code, but bad at making business decisions. Cloudflare's Code Mode idea -- let the model write the script, and let an expert system run it -- is a natural fit for EITL. Includes a Talon-language claims-processing example for an insurance company.
 
 ## About
 
@@ -21,4 +22,5 @@
 - [Talon language](https://github.com/opentalon/talon-language) — a rule language used in the examples on this blog for declarative expert-system rules.
 - [OpenTalon](https://github.com/opentalon/opentalon) — an EITL-first framework for enterprise AI agent orchestration: security-first request handling, channel-level auth (Teams/Slack/MCP), built-in RAG, and any-LLM compatibility.
 - Enterprise AI orchestration, RAG, predictive maintenance, AI security.
+- Code Mode for MCP -- letting the LLM write a script (e.g. in Talon) instead of making the decision directly, then handing the script to an expert system that enforces rules and makes the call.
 - AI architecture, software architecture, distributed systems.
