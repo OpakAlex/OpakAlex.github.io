@@ -2,7 +2,7 @@
 title: "Enterprise AI Orchestration"
 date: 2026-05-28
 draft: false
-tags: ["AI", "expert systems", "Talon", "OpenTalon", "LLM", "EITL", "enterprise"]
+tags: ["AI", "expert systems", "Tln", "OpenTalon", "LLM", "EITL", "enterprise"]
 summary: "Managing AI agents in the enterprise means solving for security, knowledge access, and orchestration at the same time. A look at OpenTalon -- an EITL-first framework that combines LLMs with expert rules for corporate AI architecture."
 ShowToc: true
 ---
@@ -29,9 +29,9 @@ Channel-level authentication lets you identify Microsoft Teams, Slack, or other 
 
 OpenTalon was built for corporate needs: using the terminology and knowledge of the company, opening access to information, and creating business processes. But the main feature of the framework is its commitment to the [Expert-in-the-Loop (EITL)](https://opakalex.github.io/posts/expert-in-the-loop/) principle. The combination of LLMs and expert rules is what makes OpenTalon a unique solution on the market.
 
-Let's walk through an example using the [Talon language](https://github.com/opentalon/talon-language). Imagine a logistics warehouse with a fleet of electric forklifts. Each one accumulates operating hours, gets serviced on intervals, has parts replaced over time. Technicians write up their work in plain text in whatever language they prefer. The question OpenTalon answers is: when should the next service happen, what parts need to be ordered, and which exceptions need a human eye?
+Let's walk through an example using the [Tln language](https://github.com/opentalon/tln-language). Imagine a logistics warehouse with a fleet of electric forklifts. Each one accumulates operating hours, gets serviced on intervals, has parts replaced over time. Technicians write up their work in plain text in whatever language they prefer. The question OpenTalon answers is: when should the next service happen, what parts need to be ordered, and which exceptions need a human eye?
 
-```talon
+```tln
 // ── Facts: forklift baseline + service history ──────────
 
 fact "asset.forklift_F12" {

@@ -2,7 +2,7 @@
 title: "LLM, Neural Network, or Expert System?"
 date: 2026-05-27
 draft: false
-tags: ["AI", "expert systems", "Talon", "LLM", "neural networks"]
+tags: ["AI", "expert systems", "Tln", "LLM", "neural networks"]
 summary: "Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters -- and how the real world runs on it."
 ShowToc: true
 ---
@@ -35,7 +35,7 @@ An expert system, by contrast, knows exactly which facts it is reasoning from. I
 
 Those facts live in the system as data, not as vibes:
 
-```talon
+```tln
 fact "amanita_muscaria" {
   common_name = "Fly Agaric"
   edible = "conditional"
@@ -65,11 +65,11 @@ And that is what decision-making really is. A decision cannot rest on randomness
 
 ## A Concrete Example: Warehouse Replenishment
 
-Let's look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the [Talon language](https://github.com/opentalon/talon-language).
+Let's look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the [Tln language](https://github.com/opentalon/tln-language).
 
 Imagine an online retailer with thousands of SKUs flowing through a distribution center. The system watches stock levels, incoming orders, supplier availability, and seasonal patterns. When inventory dips below a threshold, the system decides on its own whether to place an order, with which supplier, for what quantity -- and when to pull a human into the loop.
 
-```talon
+```tln
 define "low_stock" {
   "item.quantity_on_hand" < "item.reorder_threshold"
 }

@@ -2,7 +2,7 @@
 title: "Human-in-the-Loop, the Business-Comfort Zone, and Vigilance Theory"
 date: 2026-06-22
 draft: false
-tags: ["AI", "HITL", "EITL", "vigilance", "expert systems", "Talon"]
+tags: ["AI", "HITL", "EITL", "vigilance", "expert systems", "Tln"]
 summary: "Human-in-the-Loop is sold as a quality guarantee for AI decisions. In practice it is a business-comfort zone -- a place where a living person carries the responsibility for decisions they do not actually control."
 ShowToc: true
 ---
@@ -55,9 +55,9 @@ That is why **Expert-in-the-Loop is the honest version** of the same idea.
 
 ## What expert review looks like in code
 
-Rather than asking a human to scan every diff for the rare meaningful change, an [Expert-in-the-Loop](/posts/expert-in-the-loop/) setup describes -- once -- what "safe enough" means, and then enforces it on every PR. Here is what that looks like in the [Talon language](https://github.com/opentalon/talon-language):
+Rather than asking a human to scan every diff for the rare meaningful change, an [Expert-in-the-Loop](/posts/expert-in-the-loop/) setup describes -- once -- what "safe enough" means, and then enforces it on every PR. Here is what that looks like in the [Tln language](https://github.com/opentalon/tln-language):
 
-```talon
+```tln
 // ── Definitions ────────────────────────────────────────
 
 define "small_change" {

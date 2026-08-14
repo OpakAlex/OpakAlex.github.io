@@ -6,7 +6,7 @@ ShowToc: false
 
 ## Who I Am
 
-I'm Alex Opak, a Software Architect based in Zurich, Switzerland. Creator of [OpenTalon](https://github.com/opentalon/opentalon), an AI enterprise orchestration eco system, the [Talon](https://github.com/opentalon/talon-language) expert system programming language, and the [Expert-in-the-Loop (EITL)](/posts/expert-in-the-loop/) paradigm. With over 15 years of experience in software design and development, I specialize in building scalable, high-availability systems.
+I'm Alex Opak, a Software Architect based in Zurich, Switzerland. Creator of [OpenTalon](https://github.com/opentalon/opentalon), an AI enterprise orchestration eco system, the [Tln](https://github.com/opentalon/tln-language) expert system programming language, and the [Expert-in-the-Loop (EITL)](/posts/expert-in-the-loop/) paradigm. With over 15 years of experience in software design and development, I specialize in building scalable, high-availability systems.
 
 From startups to established companies, from individual contributor to CTO.
 
@@ -16,11 +16,11 @@ I architect and build production systems with high load, ML/AI-first architectur
 
 - **Distributed Systems** -- Elasticsearch, Kafka, event-driven architectures
 - **Infrastructure** -- Kubernetes, Helm, Docker, Terraform, CI/CD pipelines
-- **Databases** -- PostgreSQL, MySQL, CouchDB, TalonDb, Datalevin, Weaviate
+- **Databases** -- PostgreSQL, MySQL, CouchDB, TlnDb, Datalevin, Weaviate
 - **Functional Programming** -- Elixir/OTP, Rust
 - **OOP Programming** -- Ruby, Crystal, C#, Java, Python, JavaScript, TypeScript
 - **Systems/Scripting** -- Go, Lua, Painless (Elasticsearch)
-- **Expert System Programming** -- Prolog, Datalog, Talon
+- **Expert System Programming** -- Prolog, Datalog, Tln
 - **AI Orchestration Enterprise System** -- OpenTalon
 
 I'm passionate about building teams as much as building software. Throughout my career, I've recruited, mentored, and led engineering teams that delivered impactful products.

@@ -2,8 +2,8 @@
 title: "Deterministic Where It Matters"
 date: 2026-07-28
 draft: false
-tags: ["AI", "determinism", "expert systems", "Talon", "OpenTalon", "LLM", "EITL", "agents"]
-summary: "LLMs are probabilistic by nature -- probability buys flexibility, never 100% accuracy. So can a Talon + LLM agent pipeline promise same input, same output? The honest answer is a split: the decision core is provably deterministic, the LLM edge is only reproducible. Determinism comes from architecture, not from taming the model."
+tags: ["AI", "determinism", "expert systems", "Tln", "OpenTalon", "LLM", "EITL", "agents"]
+summary: "LLMs are probabilistic by nature -- probability buys flexibility, never 100% accuracy. So can a Tln + LLM agent pipeline promise same input, same output? The honest answer is a split: the decision core is provably deterministic, the LLM edge is only reproducible. Determinism comes from architecture, not from taming the model."
 ShowToc: true
 ---
 
@@ -15,7 +15,7 @@ Should we fight this? The answer to that deceptively simple question is really p
 
 You could say that mistakes are normal; everyone makes them. But a **lie** is already a vice. What do you do when the lie *is* the mistake? For an LLM, that is precisely the case -- a confident, fluent, well-formatted falsehood is indistinguishable, at the point of output, from a correct answer. You have to constrain each agent to be as deterministic as possible. And what does determinism best inside a machine? **Program code** -- because determinism is the very foundation of code.
 
-That is why the [Talon language](https://github.com/opentalon/talon-language) was created inside the [OpenTalon](https://github.com/opentalon/opentalon) ecosystem: let the LLM generate the code, then have each agent make its decision and verify it against **facts** -- and facts don't lie. Every run, the agent executes code the LLM authored ahead of time. That is what makes a deterministic result possible.
+That is why the [Tln language](https://github.com/opentalon/tln-language) was created inside the [OpenTalon](https://github.com/opentalon/opentalon) ecosystem: let the LLM generate the code, then have each agent make its decision and verify it against **facts** -- and facts don't lie. Every run, the agent executes code the LLM authored ahead of time. That is what makes a deterministic result possible.
 
 ![Deterministic computation is verifiable and reproducible -- numbers don't lie -- while an LLM generates output by sampling tokens probabilistically; hallucinations can invent non-existent statistics in a business report or approve a drug that does not exist in medicine. Strict prompts, human review, RAG, and source verification limit the risk but do not eliminate it. Use LLMs where flexibility counts; keep critical calculations deterministic.](/images/deterministic-where-it-matters.png)
 
@@ -25,10 +25,10 @@ The question everyone actually asks -- *can I get the same output from the same 
 
 This is the move [opentalon-agents](https://github.com/opentalon/opentalon-agents) makes. It splits the lifetime of an agent into two phases that most systems smear together:
 
-- **Authoring.** A human describes a task in fuzzy natural language. The LLM does what it is genuinely good at -- turning that description into a small Talon program. This happens *once*.
-- **Execution.** From then on, the runtime evaluates that Talon program on every tick, over the facts of the moment. **No model call. No sampling. No re-deciding.**
+- **Authoring.** A human describes a task in fuzzy natural language. The LLM does what it is genuinely good at -- turning that description into a small Tln program. This happens *once*.
+- **Execution.** From then on, the runtime evaluates that Tln program on every tick, over the facts of the moment. **No model call. No sampling. No re-deciding.**
 
-The LLM is great at authoring an automation from a vague request. But you don't want a model re-deciding what to do every five minutes, forever. So it doesn't. Once the Talon is written, the model steps out of the loop entirely.
+The LLM is great at authoring an automation from a vague request. But you don't want a model re-deciding what to do every five minutes, forever. So it doesn't. Once the Tln is written, the model steps out of the loop entirely.
 
 What runs in its place is deliberately boring, and boring is the point:
 
@@ -42,11 +42,11 @@ That is the determinism boundary: *no model in the loop.* Everything downstream 
 
 Here is the reframe that makes the whole question tractable. "Deterministic pipeline" is not one property -- it is two, and they live in different places.
 
-**Execution determinism** lives in the Talon core. It is the pure evaluation of rules over facts: the same facts always yield the same decision and fire the same actions, on any machine, at any time. This one you get for free -- it is what a deterministic language *is*.
+**Execution determinism** lives in the Tln core. It is the pure evaluation of rules over facts: the same facts always yield the same decision and fire the same actions, on any machine, at any time. This one you get for free -- it is what a deterministic language *is*.
 
-**Authoring determinism** lives at the LLM edge: does the same natural-language input always produce the same Talon program? Honestly -- no, not at the token level. Sampling, model-version drift, even floating-point non-determinism in batched inference at temperature zero all conspire against a bit-for-bit guarantee.
+**Authoring determinism** lives at the LLM edge: does the same natural-language input always produce the same Tln program? Honestly -- no, not at the token level. Sampling, model-version drift, even floating-point non-determinism in batched inference at temperature zero all conspire against a bit-for-bit guarantee.
 
-But notice the trap in the original question. "Same output" measured *how?* If you measure at the token level, you will never win -- and you don't need to. Two Talon programs can be textually different and semantically identical: reordered rules, a renamed `define`, a different whitespace style. What you actually care about is whether they produce the **same decision on the same facts.** That is the level at which "same input, same output" is both meaningful and achievable.
+But notice the trap in the original question. "Same output" measured *how?* If you measure at the token level, you will never win -- and you don't need to. Two Tln programs can be textually different and semantically identical: reordered rules, a renamed `define`, a different whitespace style. What you actually care about is whether they produce the **same decision on the same facts.** That is the level at which "same input, same output" is both meaningful and achievable.
 
 So the pipeline has a probabilistic edge and a deterministic core. The engineering is entirely about keeping the boundary between them clean.
 
@@ -58,7 +58,7 @@ Let me make this concrete with a domain where a hallucinated number is not an in
 
 The model never doses anyone. It never sees a formulary or a contraindication table. Its only job is to turn a messy note into a canonical set of **facts about this patient**:
 
-```talon
+```tln
 // ── Generated by the LLM from intake_note.txt + lab_panel.json ──
 // The LLM is an information provider, not a decision-maker.
 
@@ -86,7 +86,7 @@ That is the entire LLM contribution: two blocks of facts. If it misreads `38` as
 
 The rest of the file is written by pharmacists and physicians, reviewed by clinical governance, and versioned next to the code it governs. It does not change between patients. It is the deterministic layer that actually decides:
 
-```talon
+```tln
 // ── Authored by clinical governance ─────────────────────
 // Formulary limits, contraindications, renal adjustments.
 // Reviewed by pharmacy, physicians, and compliance.
@@ -157,9 +157,9 @@ rule "Escalate on hyperkalemia before any renal-cleared drug" {
 
 ### 3. The LLM closes the loop -- but gated
 
-Once the core has decided, the model is allowed back for one thing it is good at: writing the instruction sheet in plain language. And it is not trusted to send it. Talon verifies the draft against the recorded facts first:
+Once the core has decided, the model is allowed back for one thing it is good at: writing the instruction sheet in plain language. And it is not trusted to send it. Tln verifies the draft against the recorded facts first:
 
-```talon
+```tln
 rule "Draft patient instructions, verify, then release" {
   when "rx.decision" in ["approved", "adjusted"]
   do llm_draft "instructions" from "rx.decision_facts" tone "plain"
@@ -183,10 +183,10 @@ And when the model re-enters to draft the patient's instructions, it re-enters b
 You cannot make the authoring step provably deterministic. You can make it *reproducible enough* that it stops being a source of surprise:
 
 - **Greedy decoding** (temperature 0) removes deliberate sampling noise.
-- **Grammar-constrained decoding** onto Talon's tiny grammar shrinks the output space dramatically -- the model can only emit valid `fact` blocks, so there is far less room to diverge. As I covered in [Code Mode for MCP](/posts/code-mode-for-mcp/), the whole grammar fits in a forty-line prompt.
+- **Grammar-constrained decoding** onto Tln's tiny grammar shrinks the output space dramatically -- the model can only emit valid `fact` blocks, so there is far less room to diverge. As I covered in [Code Mode for MCP](/posts/code-mode-for-mcp/), the whole grammar fits in a forty-line prompt.
 - **Pinned model versions** stop silent drift when a provider ships a new checkpoint.
-- **Prompt-hash caching** memoizes `input → Talon`: an input you have seen before returns the exact program you produced last time, for free.
-- **Canonicalization** normalizes the emitted Talon -- sorted keys, stable formatting -- so that semantic equality becomes textual equality, and you can diff two runs and actually trust the result.
+- **Prompt-hash caching** memoizes `input → Tln`: an input you have seen before returns the exact program you produced last time, for free.
+- **Canonicalization** normalizes the emitted Tln -- sorted keys, stable formatting -- so that semantic equality becomes textual equality, and you can diff two runs and actually trust the result.
 
 Be honest about what this buys you: higher reproducibility, not a proof. And that is fine, because the proof was never supposed to live here.
 
@@ -207,4 +207,4 @@ Deterministic where it matters. Probabilistic where it helps. That is the whole 
 - [LLM, Neural Network, or Expert System?](/posts/llm-neural-network-or-expert-system/) -- on the boundary between probabilistic and deterministic decisions.
 - [Human-in-the-Loop and Vigilance Theory](/posts/human-in-the-loop-vigilance/) -- why "a human approves everything" is not the safety net it looks like.
 - [opentalon-agents](https://github.com/opentalon/opentalon-agents) -- persistent, LLM-authored automations that run deterministically with no model in the loop.
-- [Talon language](https://github.com/opentalon/talon-language) -- the small deterministic language behind all of this.
+- [Tln language](https://github.com/opentalon/tln-language) -- the small deterministic language behind all of this.

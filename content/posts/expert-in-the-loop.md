@@ -2,7 +2,7 @@
 title: "Expert in the Loop (EITL)"
 date: 2026-05-13
 draft: false
-tags: ["AI", "architecture", "expert systems", "Talon", "LLM", "EITL"]
+tags: ["AI", "architecture", "expert systems", "Tln", "LLM", "EITL"]
 summary: "Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop (EITL) with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making."
 ShowToc: true
 ---
@@ -33,9 +33,9 @@ It proposes removing the human from decision-making entirely.
 
 Madness? Perhaps. But well-described rules that rely on documentation, that can be verified, and that are written by humans -- are far more effective than the humans themselves. They don't need rest. They don't need vacations.
 
-Let's take our example above. 3-4 senior engineers describe how code review should work using clear rules. For example ([Talon language](https://github.com/opentalon/talon-language)):
+Let's take our example above. 3-4 senior engineers describe how code review should work using clear rules. For example ([Tln language](https://github.com/opentalon/tln-language)):
 
-```talon
+```tln
 define "small_change" {
   "pr.lines_changed" < 50
   "pr.files_changed" < 5

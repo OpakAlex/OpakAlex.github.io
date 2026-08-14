@@ -11,7 +11,7 @@ A selection of my open source work on [GitHub](https://github.com/OpakAlex) and 
 ### AI / Expert System
 
 - **[OpenTalon](https://github.com/opentalon/opentalon)** -- AI enterprise orchestration eco system
-- **[Talon Language](https://github.com/opentalon/talon-language)** -- Expert system programming language
+- **[Tln Language](https://github.com/opentalon/tln-language)** -- Expert system programming language
 - **[OpenTalon Kubernetes](https://github.com/OpakAlex/k8s-operator)** -- Kubernetes operator for deploying and managing AI agent instances with production-grade security and observability
 
 ### Elixir
