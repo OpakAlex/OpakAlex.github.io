@@ -15,7 +15,7 @@ Should we fight this? The answer to that deceptively simple question is really p
 
 You could say that mistakes are normal; everyone makes them. But a **lie** is already a vice. What do you do when the lie *is* the mistake? For an LLM, that is precisely the case -- a confident, fluent, well-formatted falsehood is indistinguishable, at the point of output, from a correct answer. You have to constrain each agent to be as deterministic as possible. And what does determinism best inside a machine? **Program code** -- because determinism is the very foundation of code.
 
-That is why the [Tln language](https://github.com/opentalon/tln-language) was created inside the [OpenTalon](https://github.com/opentalon/opentalon) ecosystem: let the LLM generate the code, then have each agent make its decision and verify it against **facts** -- and facts don't lie. Every run, the agent executes code the LLM authored ahead of time. That is what makes a deterministic result possible.
+That is why the [Tln language](https://tln-lang.org/) was created inside the [OpenTalon](https://github.com/opentalon/opentalon) ecosystem: let the LLM generate the code, then have each agent make its decision and verify it against **facts** -- and facts don't lie. Every run, the agent executes code the LLM authored ahead of time. That is what makes a deterministic result possible.
 
 ![Deterministic computation is verifiable and reproducible -- numbers don't lie -- while an LLM generates output by sampling tokens probabilistically; hallucinations can invent non-existent statistics in a business report or approve a drug that does not exist in medicine. Strict prompts, human review, RAG, and source verification limit the risk but do not eliminate it. Use LLMs where flexibility counts; keep critical calculations deterministic.](/images/deterministic-where-it-matters.png)
 
@@ -207,4 +207,4 @@ Deterministic where it matters. Probabilistic where it helps. That is the whole 
 - [LLM, Neural Network, or Expert System?](/posts/llm-neural-network-or-expert-system/) -- on the boundary between probabilistic and deterministic decisions.
 - [Human-in-the-Loop and Vigilance Theory](/posts/human-in-the-loop-vigilance/) -- why "a human approves everything" is not the safety net it looks like.
 - [opentalon-agents](https://github.com/opentalon/opentalon-agents) -- persistent, LLM-authored automations that run deterministically with no model in the loop.
-- [Tln language](https://github.com/opentalon/tln-language) -- the small deterministic language behind all of this.
+- [Tln language](https://tln-lang.org/) -- the small deterministic language behind all of this.

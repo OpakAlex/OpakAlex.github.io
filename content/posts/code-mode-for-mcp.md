@@ -17,7 +17,7 @@ An LLM can write a scenario that can then be processed -- together with the comp
 
 ## A Claims Example
 
-Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in -- usually they are simply invoices. Can an LLM extract the information? Of course -- this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the [Tln language](https://github.com/opentalon/tln-language). But the insurance company has its own expert rules, and those rules can be applied on top of the LLM's code.
+Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in -- usually they are simply invoices. Can an LLM extract the information? Of course -- this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the [Tln language](https://tln-lang.org/). But the insurance company has its own expert rules, and those rules can be applied on top of the LLM's code.
 
 Imagine a claim arrives as a PDF invoice from a clinic. The LLM reads the document, OCRs the amounts, identifies the policy holder, the diagnosis codes, the providers -- and emits a Tln scenario describing what it found. The expert system then takes that scenario, checks it against policy facts, regulatory limits, fraud heuristics, and the insurer's own rules, and decides whether to pay, partially pay, reject, or escalate to a human.
 

@@ -21,7 +21,7 @@
 
 - Expert-in-the-Loop (EITL) — a paradigm in which deterministic expert systems make decisions alongside LLMs, removing the human-review bottleneck for non-critical paths.
 - Expert systems vs LLMs — the distinction between probabilistic language generation and deterministic, auditable rule-based decisions.
-- [Tln language](https://github.com/opentalon/tln-language) — a rule language used in the examples on this blog for declarative expert-system rules.
+- [Tln language](https://tln-lang.org/) — a rule language used in the examples on this blog for declarative expert-system rules.
 - [OpenTalon](https://github.com/opentalon/opentalon) — an EITL-first framework for enterprise AI agent orchestration: security-first request handling, channel-level auth (Teams/Slack/MCP), built-in RAG, and any-LLM compatibility.
 - [opentalon-agents](https://github.com/opentalon/opentalon-agents) — persistent, LLM-authored automations written in Tln that run deterministically with no model in the loop: authoring-vs-execution split, edge-triggered firing, snapshot state between ticks, replay-safe restarts, poll/webhook/schedule triggers.
 - Enterprise AI orchestration, RAG, predictive maintenance, AI security.

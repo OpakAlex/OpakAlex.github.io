@@ -65,7 +65,7 @@ And that is what decision-making really is. A decision cannot rest on randomness
 
 ## A Concrete Example: Warehouse Replenishment
 
-Let's look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the [Tln language](https://github.com/opentalon/tln-language).
+Let's look at how an expert system behaves in a concrete decision: replenishing a warehouse. The example below uses the [Tln language](https://tln-lang.org/).
 
 Imagine an online retailer with thousands of SKUs flowing through a distribution center. The system watches stock levels, incoming orders, supplier availability, and seasonal patterns. When inventory dips below a threshold, the system decides on its own whether to place an order, with which supplier, for what quantity -- and when to pull a human into the loop.
 

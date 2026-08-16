@@ -55,7 +55,7 @@ That is why **Expert-in-the-Loop is the honest version** of the same idea.
 
 ## What expert review looks like in code
 
-Rather than asking a human to scan every diff for the rare meaningful change, an [Expert-in-the-Loop](/posts/expert-in-the-loop/) setup describes -- once -- what "safe enough" means, and then enforces it on every PR. Here is what that looks like in the [Tln language](https://github.com/opentalon/tln-language):
+Rather than asking a human to scan every diff for the rare meaningful change, an [Expert-in-the-Loop](/posts/expert-in-the-loop/) setup describes -- once -- what "safe enough" means, and then enforces it on every PR. Here is what that looks like in the [Tln language](https://tln-lang.org/):
 
 ```tln
 // ── Definitions ────────────────────────────────────────

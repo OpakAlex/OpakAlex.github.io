@@ -11,8 +11,9 @@ A selection of my open source work on [GitHub](https://github.com/OpakAlex) and 
 ### AI / Expert System
 
 - **[OpenTalon](https://github.com/opentalon/opentalon)** -- AI enterprise orchestration eco system
-- **[Tln Language](https://github.com/opentalon/tln-language)** -- Expert system programming language
-- **[Tln DB](https://github.com/opentalon/tln-db)** -- Fact store and query engine for the Tln expert system, purpose-built for deterministic rule evaluation over facts
+- **[Tln Language](https://tln-lang.org/)** -- Expert system programming language
+- **[Tln DB](https://github.com/opentalon/tln-db)** -- Go-native embedded fact store and query engine for Tln (bbolt + roaring-bitmap index + HNSW vectors); ships as a library or a gRPC/HTTP sidecar behind the FactStore interface
+- **[Tln MCP](https://github.com/opentalon/tln-mcp)** -- MCP tool plugin for Tln: a ToolResolver over the Model Context Protocol, so rules can call external tools
 - **[OpenTalon Kubernetes](https://github.com/OpakAlex/k8s-operator)** -- Kubernetes operator for deploying and managing AI agent instances with production-grade security and observability
 
 ### Elixir

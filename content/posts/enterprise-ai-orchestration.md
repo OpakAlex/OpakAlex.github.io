@@ -29,7 +29,7 @@ Channel-level authentication lets you identify Microsoft Teams, Slack, or other 
 
 OpenTalon was built for corporate needs: using the terminology and knowledge of the company, opening access to information, and creating business processes. But the main feature of the framework is its commitment to the [Expert-in-the-Loop (EITL)](https://opakalex.github.io/posts/expert-in-the-loop/) principle. The combination of LLMs and expert rules is what makes OpenTalon a unique solution on the market.
 
-Let's walk through an example using the [Tln language](https://github.com/opentalon/tln-language). Imagine a logistics warehouse with a fleet of electric forklifts. Each one accumulates operating hours, gets serviced on intervals, has parts replaced over time. Technicians write up their work in plain text in whatever language they prefer. The question OpenTalon answers is: when should the next service happen, what parts need to be ordered, and which exceptions need a human eye?
+Let's walk through an example using the [Tln language](https://tln-lang.org/). Imagine a logistics warehouse with a fleet of electric forklifts. Each one accumulates operating hours, gets serviced on intervals, has parts replaced over time. Technicians write up their work in plain text in whatever language they prefer. The question OpenTalon answers is: when should the next service happen, what parts need to be ordered, and which exceptions need a human eye?
 
 ```tln
 // ── Facts: forklift baseline + service history ──────────
