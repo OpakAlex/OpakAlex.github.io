@@ -17,8 +17,8 @@ I architect and build production systems with high load, ML/AI-first architectur
 - **Distributed Systems** -- Elasticsearch, Kafka, event-driven architectures
 - **Infrastructure** -- Kubernetes, Helm, Docker, Terraform, CI/CD pipelines
 - **Databases** -- PostgreSQL, MySQL, CouchDB, TlnDb, Datalevin, Weaviate
-- **Functional Programming** -- Elixir/OTP, Rust
-- **OOP Programming** -- Ruby, Crystal, C#, Java, Python, JavaScript, TypeScript
+- **Functional Programming** -- Erlang, Elixir, Rust
+- **OOP Programming** -- Ruby, Crystal, C#, Java, Python, JavaScript, TypeScript, Dart
 - **Systems/Scripting** -- Go, Lua, Painless (Elasticsearch)
 - **Expert System Programming** -- Prolog, Datalog, Tln
 - **AI Orchestration Enterprise System** -- OpenTalon
