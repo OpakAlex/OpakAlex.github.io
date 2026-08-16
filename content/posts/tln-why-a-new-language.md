@@ -1,5 +1,6 @@
 ---
 title: "Tln: Why a New Language?"
+titleHtml: '<a href="https://tln-lang.org/">Tln</a>: Why a New Language?'
 date: 2026-08-16
 draft: false
 tags: ["AI", "expert systems", "Tln", "Prolog", "LLM", "logic programming"]
