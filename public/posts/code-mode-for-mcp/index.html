@@ -1,9 +1,252 @@
-<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Code Mode for MCP | Alex Opak | Software Architect</title><meta name=keywords content="AI,MCP,Code Mode,expert systems,Tln,OpenTalon,LLM,EITL"><meta name=description content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare&rsquo;s Code Mode idea &ndash; let the model write the script, and let an expert system run it &ndash; is a natural fit for EITL. A claims-processing example in the Tln language."><meta name=author content="Alex Opak"><link rel=canonical href=https://opakalex.github.io/posts/code-mode-for-mcp/><link crossorigin=anonymous href=/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as=style><link rel=icon href=https://opakalex.github.io/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://opakalex.github.io/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://opakalex.github.io/favicon.svg><link rel=apple-touch-icon href=https://opakalex.github.io/favicon.svg><link rel=mask-icon href=https://opakalex.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://opakalex.github.io/posts/code-mode-for-mcp/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://opakalex.github.io/posts/code-mode-for-mcp/"><meta property="og:site_name" content="Alex Opak | Software Architect"><meta property="og:title" content="Code Mode for MCP"><meta property="og:description" content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare’s Code Mode idea – let the model write the script, and let an expert system run it – is a natural fit for EITL. A claims-processing example in the Tln language."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-05-29T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-29T00:00:00+00:00"><meta property="article:tag" content="AI"><meta property="article:tag" content="MCP"><meta property="article:tag" content="Code Mode"><meta property="article:tag" content="Expert Systems"><meta property="article:tag" content="Tln"><meta property="article:tag" content="OpenTalon"><meta name=twitter:card content="summary"><meta name=twitter:title content="Code Mode for MCP"><meta name=twitter:description content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare’s Code Mode idea – let the model write the script, and let an expert system run it – is a natural fit for EITL. A claims-processing example in the Tln language."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://opakalex.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Code Mode for MCP","item":"https://opakalex.github.io/posts/code-mode-for-mcp/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Code Mode for MCP","name":"Code Mode for MCP","description":"LLMs are excellent at writing code, but bad at making business decisions. Cloudflare\u0026rsquo;s Code Mode idea \u0026ndash; let the model write the script, and let an expert system run it \u0026ndash; is a natural fit for EITL. A claims-processing example in the Tln language.","keywords":["AI","MCP","Code Mode","expert systems","Tln","OpenTalon","LLM","EITL"],"articleBody":"LLMs have, in practice, proven their usefulness in generating program code. You cannot say that LLMs have excelled at architecture or engineering ideas – that is not their job – but generating structured code is one of their strengths. A rather interesting and reasonable question arises: can we entrust an LLM with decision-making? Or do we want binary logic to make those decisions? The question is interesting and even philosophical, because there are areas where an error in a decision will not lead to fatal consequences – for example, deciding when to clear the shoulders of rural roads. If an LLM decides to do this every two weeks, or once a month, or once every two months, it will not significantly affect traffic safety, or stormwater overflow, or anything else. But if the LLM pushes back the same schedule on a high-speed motorway, it will affect road safety. So it is becoming more and more obvious that there are questions where the good old if / else / case do the job much better and more precisely in the domain of decision-making and planning.\nWhat LLMs Are Good At, and Where They Stop An LLM can write a book (this is not a joke) using your service’s MCP, but can it decide what to do with a transaction? An order? Obviously not. More than that – there are specialized models trained on data precisely to make such decisions, and to keep a human at the head of that process. The approach first articulated at Cloudflare is worth studying, and worth studying at different levels of management. What if we let the model do what it does best? Yes, exactly that: write code.\nAn LLM can write a scenario that can then be processed – together with the company’s rules (its expert knowledge) – and a decision can be made on top of it. This is a revolutionary idea for the use of language models. And yet linguistic communication is exactly what business decisions are made of: how many meetings with experts does it take to settle one question or another, and whether we like it or not, we use language to do it.\nA Claims Example Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in – usually they are simply invoices. Can an LLM extract the information? Of course – this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the Tln language. But the insurance company has its own expert rules, and those rules can be applied on top of the LLM’s code.\nImagine a claim arrives as a PDF invoice from a clinic. The LLM reads the document, OCRs the amounts, identifies the policy holder, the diagnosis codes, the providers – and emits a Tln scenario describing what it found. The expert system then takes that scenario, checks it against policy facts, regulatory limits, fraud heuristics, and the insurer’s own rules, and decides whether to pay, partially pay, reject, or escalate to a human.\n1. What the LLM generates from the invoice The LLM never sees the policy, never sees the rules. It only sees the document. Its job is to convert unstructured text into a structured Tln scenario – a set of facts about this claim:\n// ── Generated by the LLM from claim_invoice.pdf ───────── // The LLM acts as an information provider, not a decision-maker. fact \"claim.C-2026-04891\" { holder_id = \"P-882341\" provider_id = \"clinic_zurich_01\" visit_date = \"2026-05-22\" amount_chf = 620 service_category = \"outpatient\" diagnosis_codes = [\"J06.9\", \"R50.9\"] referral_id = \"REF-77120\" document_source = \"invoice_2026_04891.pdf\" } That is the entire LLM contribution: one block of facts. No decisions, no thresholds, no policy logic. If the LLM hallucinates an amount, the worst it can do is produce a wrong fact – which the expert system can still cross-check.\n2. What the company’s expert rules add on top The rest of the file is written once, by the insurer, and reviewed by underwriters, lawyers, and compliance. It does not change between claims. It is the deterministic layer that makes the actual decision:\n// ── Authored by the insurance company ─────────────────── // Policy facts, regulatory limits, and decision rules. // Reviewed by underwriting, legal, and compliance. fact \"policy.P-882341\" { plan = \"outpatient_basic\" annual_limit_chf = 5000 annual_used_chf = 1840 deductible_chf = 500 deductible_used_chf = 320 excluded_categories = [\"cosmetic\", \"experimental\"] network = \"tier_1\" } fact \"provider_directory\" { in_network = [\"clinic_zurich_01\", \"clinic_basel_04\"] blacklisted = [\"clinic_unverified_99\"] } fact \"regulatory_limits.outpatient\" { max_per_visit_chf = 800 requires_referral_if_over_chf = 400 } // ── Conditions ────────────────────────────────────────── define \"provider_in_network\" { \"claim.provider_id\" in \"provider_directory.in_network\" } define \"provider_blacklisted\" { \"claim.provider_id\" in \"provider_directory.blacklisted\" } define \"category_excluded\" { \"claim.service_category\" in \"policy.excluded_categories\" } define \"exceeds_per_visit_cap\" { \"claim.amount_chf\" \u003e \"regulatory_limits.outpatient.max_per_visit_chf\" } define \"needs_referral\" { \"claim.amount_chf\" \u003e \"regulatory_limits.outpatient.requires_referral_if_over_chf\" and \"claim.referral_id\" == null } define \"within_annual_limit\" { \"policy.annual_used_chf\" + \"claim.amount_chf\" \u003c= \"policy.annual_limit_chf\" } // ── Decision rules ────────────────────────────────────── rule \"Auto-reject blacklisted provider\" { when is \"provider_blacklisted\" do set \"claim.decision\" \"rejected\" do explain \"Provider {claim.provider_id} is on the fraud blacklist\" do notify \"team.fraud\" \"claim.id\" } rule \"Auto-reject excluded category\" { when is \"category_excluded\" do set \"claim.decision\" \"rejected\" do explain \"Service category {claim.service_category} is not covered by plan {policy.plan}\" } rule \"Escalate when referral missing\" { when is \"needs_referral\" do require \"review.claims_officer\" do explain \"Amount {claim.amount_chf} CHF requires a referral; none provided\" } rule \"Cap payout at per-visit limit\" { when is \"exceeds_per_visit_cap\" do set \"claim.payable_chf\" \"regulatory_limits.outpatient.max_per_visit_chf\" do comment \"claim\" \"Payout capped at regulatory per-visit maximum\" } rule \"Approve routine in-network claim\" { when is \"provider_in_network\" and not is \"category_excluded\" and not is \"exceeds_per_visit_cap\" and not is \"needs_referral\" and is \"within_annual_limit\" do set \"claim.decision\" \"approved\" do set \"claim.payable_chf\" \"claim.amount_chf\" - \"policy.remaining_deductible\" do schedule_payment \"claim.payable_chf\" to \"claim.holder_id\" } // ── Anomaly detection — escalate to a human ───────────── rule \"Unusual frequency from one holder\" { when count(\"claims.by_holder\", last_days = 30) \u003e 6 do require \"review.fraud_analyst\" do explain \"Holder {claim.holder_id} submitted {count} claims in 30 days\" } 3. The LLM closes the loop – but only with permission Once the expert system has made the decision, the LLM is allowed back in for one more task: drafting the letter to the policy holder in human language. The expert system verifies the draft against the recorded facts before anything is sent:\n// ── LLM drafts, expert system verifies, then sends ────── rule \"Draft explanation letter, verify, then send\" { when \"claim.decision\" in [\"approved\", \"rejected\", \"capped\"] do llm_draft \"letter\" from \"claim.decision_facts\" tone \"formal\" do verify \"letter\" against \"claim.decision_facts\" do send \"letter\" to \"claim.holder_id\" only_if \"verify.passed\" == true } Look at the division of labor. The LLM does what an LLM is genuinely good at: reading a messy invoice in any language, pulling out amounts, dates, provider IDs, diagnosis codes; and later, drafting a clear letter to the policy holder. The expert system does what it is good at: checking the extracted facts against policy limits, provider directories, regulatory caps, and fraud heuristics; deciding to approve, reject, cap, or escalate; and refusing to send any letter whose claims do not match the recorded facts.\nThis is Code Mode applied to a business decision. The LLM is not deciding whether the claim pays out. The LLM is generating a structured scenario from unstructured input. The decision is made by deterministic rules that an auditor, a regulator, or a claims supervisor can read and sign off on.\nHow Does the LLM Know Tln? A reasonable worry: if the LLM has to emit Tln, does that mean every request is bloated by a giant grammar prompt? No. Tln is intentionally small. The whole grammar – enough for the LLM to write valid scenarios – fits in a system prompt of a few dozen lines:\nYou write scenarios in Tln. Tln has three top-level forms: fact \"\" { key = value, ... } // declare a fact define \"\" { } // name a condition rule \"\" { when do ... } // fire actions when a condition holds Values: string \"x\", number 42, boolean true/false, list [a, b], null. Refs: \"namespace.field\" reads from a fact. Conditions: is \"\" not is \"\" == != \u003c \u003e (also \u003c= \u003e=) in not in exists not_empty and or Actions inside `do`: set notify explain \"\" require block llm_extract into llm_draft from tone \"\" verify against send to only_if == Your job: read the input document and emit ONLY `fact` blocks. Do not write `rule` or `define` -- those are authored by the company. That is the entire prompt. Forty-odd lines. The model is now able to read an invoice, a service note, a contract, or a support ticket and emit a Tln fact block that the company’s existing rules can immediately reason over. No fine-tuning, no special model, no megabyte-long system prompt – just a tiny, deterministic grammar that the LLM treats like any other structured output format.\nThis is the second half of why Code Mode for MCP works. The language is small enough to teach in a prompt, and the LLM is constrained to the one form it is good at: producing facts. Everything else – the rules, the policies, the decisions – lives outside the prompt entirely, in the company’s expert system.\nWhy This Is the Future This, I am convinced, is the future of LLM use for business decisions without risk. Let the model write the script. Let the expert system run it. The LLM’s strength – generating structured language – becomes the bridge between unstructured human input and deterministic rules. The risk surface of “the model hallucinated a decision” disappears, because the model is no longer the one deciding. It is preparing the case file.\nFor anything that touches money, safety, or compliance, this is the architecture that scales. It is also the architecture that survives an audit – because every decision can be traced to the rule that fired and the facts that triggered it. That, paired with the EITL principle, is what makes the combination of LLMs and expert systems genuinely usable in the enterprise.\n","wordCount":"1711","inLanguage":"en","datePublished":"2026-05-29T00:00:00Z","dateModified":"2026-05-29T00:00:00Z","author":{"@type":"Person","name":"Alex Opak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://opakalex.github.io/posts/code-mode-for-mcp/"},"publisher":{"@type":"Organization","name":"Alex Opak | Software Architect","logo":{"@type":"ImageObject","url":"https://opakalex.github.io/favicon.svg"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://opakalex.github.io/ accesskey=h title="Alex Opak | Software Architect (Alt + H)">Alex Opak | Software Architect</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://opakalex.github.io/posts/ title=Blog><span>Blog</span></a></li><li><a href=https://opakalex.github.io/projects/ title="OSS Projects"><span>OSS Projects</span></a></li><li><a href=https://opakalex.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
-<a href=/posts/>Posts</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">Code Mode for MCP</h1><div class=post-meta><span title='2026-05-29 00:00:00 +0000 UTC'>May 29, 2026</span>&nbsp;·&nbsp;<span>9 min</span>&nbsp;·&nbsp;<span>Alex Opak</span></div></header><details class=toc><summary accesskey=c title="(Alt + C)"><span class=title>Table of Contents</span></summary><div class=inner><ul><li><a href=#what-llms-are-good-at-and-where-they-stop aria-label="What LLMs Are Good At, and Where They Stop">What LLMs Are Good At, and Where They Stop</a></li><li><a href=#a-claims-example aria-label="A Claims Example">A Claims Example</a><ul><li><a href=#1-what-the-llm-generates-from-the-invoice aria-label="1. What the LLM generates from the invoice">1. What the LLM generates from the invoice</a></li><li><a href=#2-what-the-companys-expert-rules-add-on-top aria-label="2. What the company&rsquo;s expert rules add on top">2. What the company&rsquo;s expert rules add on top</a></li><li><a href=#3-the-llm-closes-the-loop--but-only-with-permission aria-label="3. The LLM closes the loop &ndash; but only with permission">3. The LLM closes the loop &ndash; but only with permission</a></li></ul></li><li><a href=#how-does-the-llm-know-tln aria-label="How Does the LLM Know Tln?">How Does the LLM Know Tln?</a></li><li><a href=#why-this-is-the-future aria-label="Why This Is the Future">Why This Is the Future</a></li></ul></div></details><div class="post-content md-content"><p>LLMs have, in practice, proven their usefulness in generating program code. You cannot say that LLMs have excelled at architecture or engineering ideas &ndash; that is not their job &ndash; but generating structured code is one of their strengths. A rather interesting and reasonable question arises: can we entrust an LLM with decision-making? Or do we want binary logic to make those decisions? The question is interesting and even philosophical, because there are areas where an error in a decision will not lead to fatal consequences &ndash; for example, deciding when to clear the shoulders of rural roads. If an LLM decides to do this every two weeks, or once a month, or once every two months, it will not significantly affect traffic safety, or stormwater overflow, or anything else. But if the LLM pushes back the same schedule on a high-speed motorway, it will affect road safety. So it is becoming more and more obvious that there are questions where the good old <code>if</code> / <code>else</code> / <code>case</code> do the job much better and more precisely in the domain of decision-making and planning.</p><h2 id=what-llms-are-good-at-and-where-they-stop>What LLMs Are Good At, and Where They Stop<a hidden class=anchor aria-hidden=true href=#what-llms-are-good-at-and-where-they-stop>#</a></h2><p>An LLM can write a book (this is not a joke) using your service&rsquo;s MCP, but can it decide what to do with a transaction? An order? Obviously not. More than that &ndash; there are specialized models trained on data precisely to make such decisions, and to keep a human at the head of that process. The approach first articulated at <a href=https://blog.cloudflare.com/code-mode/>Cloudflare</a> is worth studying, and worth studying at different levels of management. What if we let the model do what it does best? Yes, exactly that: write code.</p><p>An LLM can write a scenario that can then be processed &ndash; together with the company&rsquo;s rules (its expert knowledge) &ndash; and a decision can be made on top of it. This is a revolutionary idea for the use of language models. And yet linguistic communication is exactly what business decisions are made of: how many meetings with experts does it take to settle one question or another, and whether we like it or not, we use language to do it.</p><h2 id=a-claims-example>A Claims Example<a hidden class=anchor aria-hidden=true href=#a-claims-example>#</a></h2><p>Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in &ndash; usually they are simply invoices. Can an LLM extract the information? Of course &ndash; this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the <a href=https://tln-lang.org/>Tln language</a>. But the insurance company has its own expert rules, and those rules can be applied on top of the LLM&rsquo;s code.</p><p>Imagine a claim arrives as a PDF invoice from a clinic. The LLM reads the document, OCRs the amounts, identifies the policy holder, the diagnosis codes, the providers &ndash; and emits a Tln scenario describing what it found. The expert system then takes that scenario, checks it against policy facts, regulatory limits, fraud heuristics, and the insurer&rsquo;s own rules, and decides whether to pay, partially pay, reject, or escalate to a human.</p><h3 id=1-what-the-llm-generates-from-the-invoice>1. What the LLM generates from the invoice<a hidden class=anchor aria-hidden=true href=#1-what-the-llm-generates-from-the-invoice>#</a></h3><p>The LLM never sees the policy, never sees the rules. It only sees the document. Its job is to convert unstructured text into a structured Tln scenario &ndash; a set of facts about <em>this</em> claim:</p><pre tabindex=0><code class=language-tln data-lang=tln>// ── Generated by the LLM from claim_invoice.pdf ─────────
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Code Mode for MCP | Alex Opak | Software Architect</title>
+<meta name="keywords" content="AI, MCP, Code Mode, expert systems, Tln, OpenTalon, LLM, EITL">
+<meta name="description" content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare&rsquo;s Code Mode idea &ndash; let the model write the script, and let an expert system run it &ndash; is a natural fit for EITL. A claims-processing example in the Tln language.">
+<meta name="author" content="Alex Opak">
+<link rel="canonical" href="http://localhost:1313/posts/code-mode-for-mcp/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.svg">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.svg">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.svg">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/code-mode-for-mcp/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/code-mode-for-mcp/">
+  <meta property="og:site_name" content="Alex Opak | Software Architect">
+  <meta property="og:title" content="Code Mode for MCP">
+  <meta property="og:description" content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare’s Code Mode idea – let the model write the script, and let an expert system run it – is a natural fit for EITL. A claims-processing example in the Tln language.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-29T00:00:00+00:00">
+    <meta property="article:tag" content="AI">
+    <meta property="article:tag" content="MCP">
+    <meta property="article:tag" content="Code Mode">
+    <meta property="article:tag" content="Expert Systems">
+    <meta property="article:tag" content="Tln">
+    <meta property="article:tag" content="OpenTalon">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Code Mode for MCP">
+  <meta name="twitter:description" content="LLMs are excellent at writing code, but bad at making business decisions. Cloudflare’s Code Mode idea – let the model write the script, and let an expert system run it – is a natural fit for EITL. A claims-processing example in the Tln language.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Code Mode for MCP",
+      "item": "http://localhost:1313/posts/code-mode-for-mcp/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Code Mode for MCP",
+  "name": "Code Mode for MCP",
+  "description": "LLMs are excellent at writing code, but bad at making business decisions. Cloudflare\u0026rsquo;s Code Mode idea \u0026ndash; let the model write the script, and let an expert system run it \u0026ndash; is a natural fit for EITL. A claims-processing example in the Tln language.",
+  "keywords": [
+    "AI", "MCP", "Code Mode", "expert systems", "Tln", "OpenTalon", "LLM", "EITL"
+  ],
+  "articleBody": "LLMs have, in practice, proven their usefulness in generating program code. You cannot say that LLMs have excelled at architecture or engineering ideas – that is not their job – but generating structured code is one of their strengths. A rather interesting and reasonable question arises: can we entrust an LLM with decision-making? Or do we want binary logic to make those decisions? The question is interesting and even philosophical, because there are areas where an error in a decision will not lead to fatal consequences – for example, deciding when to clear the shoulders of rural roads. If an LLM decides to do this every two weeks, or once a month, or once every two months, it will not significantly affect traffic safety, or stormwater overflow, or anything else. But if the LLM pushes back the same schedule on a high-speed motorway, it will affect road safety. So it is becoming more and more obvious that there are questions where the good old if / else / case do the job much better and more precisely in the domain of decision-making and planning.\nWhat LLMs Are Good At, and Where They Stop An LLM can write a book (this is not a joke) using your service’s MCP, but can it decide what to do with a transaction? An order? Obviously not. More than that – there are specialized models trained on data precisely to make such decisions, and to keep a human at the head of that process. The approach first articulated at Cloudflare is worth studying, and worth studying at different levels of management. What if we let the model do what it does best? Yes, exactly that: write code.\nAn LLM can write a scenario that can then be processed – together with the company’s rules (its expert knowledge) – and a decision can be made on top of it. This is a revolutionary idea for the use of language models. And yet linguistic communication is exactly what business decisions are made of: how many meetings with experts does it take to settle one question or another, and whether we like it or not, we use language to do it.\nA Claims Example Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in – usually they are simply invoices. Can an LLM extract the information? Of course – this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the Tln language. But the insurance company has its own expert rules, and those rules can be applied on top of the LLM’s code.\nImagine a claim arrives as a PDF invoice from a clinic. The LLM reads the document, OCRs the amounts, identifies the policy holder, the diagnosis codes, the providers – and emits a Tln scenario describing what it found. The expert system then takes that scenario, checks it against policy facts, regulatory limits, fraud heuristics, and the insurer’s own rules, and decides whether to pay, partially pay, reject, or escalate to a human.\n1. What the LLM generates from the invoice The LLM never sees the policy, never sees the rules. It only sees the document. Its job is to convert unstructured text into a structured Tln scenario – a set of facts about this claim:\n// ── Generated by the LLM from claim_invoice.pdf ───────── // The LLM acts as an information provider, not a decision-maker. fact \"claim.C-2026-04891\" { holder_id = \"P-882341\" provider_id = \"clinic_zurich_01\" visit_date = \"2026-05-22\" amount_chf = 620 service_category = \"outpatient\" diagnosis_codes = [\"J06.9\", \"R50.9\"] referral_id = \"REF-77120\" document_source = \"invoice_2026_04891.pdf\" } That is the entire LLM contribution: one block of facts. No decisions, no thresholds, no policy logic. If the LLM hallucinates an amount, the worst it can do is produce a wrong fact – which the expert system can still cross-check.\n2. What the company’s expert rules add on top The rest of the file is written once, by the insurer, and reviewed by underwriters, lawyers, and compliance. It does not change between claims. It is the deterministic layer that makes the actual decision:\n// ── Authored by the insurance company ─────────────────── // Policy facts, regulatory limits, and decision rules. // Reviewed by underwriting, legal, and compliance. fact \"policy.P-882341\" { plan = \"outpatient_basic\" annual_limit_chf = 5000 annual_used_chf = 1840 deductible_chf = 500 deductible_used_chf = 320 excluded_categories = [\"cosmetic\", \"experimental\"] network = \"tier_1\" } fact \"provider_directory\" { in_network = [\"clinic_zurich_01\", \"clinic_basel_04\"] blacklisted = [\"clinic_unverified_99\"] } fact \"regulatory_limits.outpatient\" { max_per_visit_chf = 800 requires_referral_if_over_chf = 400 } // ── Conditions ────────────────────────────────────────── define \"provider_in_network\" { \"claim.provider_id\" in \"provider_directory.in_network\" } define \"provider_blacklisted\" { \"claim.provider_id\" in \"provider_directory.blacklisted\" } define \"category_excluded\" { \"claim.service_category\" in \"policy.excluded_categories\" } define \"exceeds_per_visit_cap\" { \"claim.amount_chf\" \u003e \"regulatory_limits.outpatient.max_per_visit_chf\" } define \"needs_referral\" { \"claim.amount_chf\" \u003e \"regulatory_limits.outpatient.requires_referral_if_over_chf\" and \"claim.referral_id\" == null } define \"within_annual_limit\" { \"policy.annual_used_chf\" + \"claim.amount_chf\" \u003c= \"policy.annual_limit_chf\" } // ── Decision rules ────────────────────────────────────── rule \"Auto-reject blacklisted provider\" { when is \"provider_blacklisted\" do set \"claim.decision\" \"rejected\" do explain \"Provider {claim.provider_id} is on the fraud blacklist\" do notify \"team.fraud\" \"claim.id\" } rule \"Auto-reject excluded category\" { when is \"category_excluded\" do set \"claim.decision\" \"rejected\" do explain \"Service category {claim.service_category} is not covered by plan {policy.plan}\" } rule \"Escalate when referral missing\" { when is \"needs_referral\" do require \"review.claims_officer\" do explain \"Amount {claim.amount_chf} CHF requires a referral; none provided\" } rule \"Cap payout at per-visit limit\" { when is \"exceeds_per_visit_cap\" do set \"claim.payable_chf\" \"regulatory_limits.outpatient.max_per_visit_chf\" do comment \"claim\" \"Payout capped at regulatory per-visit maximum\" } rule \"Approve routine in-network claim\" { when is \"provider_in_network\" and not is \"category_excluded\" and not is \"exceeds_per_visit_cap\" and not is \"needs_referral\" and is \"within_annual_limit\" do set \"claim.decision\" \"approved\" do set \"claim.payable_chf\" \"claim.amount_chf\" - \"policy.remaining_deductible\" do schedule_payment \"claim.payable_chf\" to \"claim.holder_id\" } // ── Anomaly detection — escalate to a human ───────────── rule \"Unusual frequency from one holder\" { when count(\"claims.by_holder\", last_days = 30) \u003e 6 do require \"review.fraud_analyst\" do explain \"Holder {claim.holder_id} submitted {count} claims in 30 days\" } 3. The LLM closes the loop – but only with permission Once the expert system has made the decision, the LLM is allowed back in for one more task: drafting the letter to the policy holder in human language. The expert system verifies the draft against the recorded facts before anything is sent:\n// ── LLM drafts, expert system verifies, then sends ────── rule \"Draft explanation letter, verify, then send\" { when \"claim.decision\" in [\"approved\", \"rejected\", \"capped\"] do llm_draft \"letter\" from \"claim.decision_facts\" tone \"formal\" do verify \"letter\" against \"claim.decision_facts\" do send \"letter\" to \"claim.holder_id\" only_if \"verify.passed\" == true } Look at the division of labor. The LLM does what an LLM is genuinely good at: reading a messy invoice in any language, pulling out amounts, dates, provider IDs, diagnosis codes; and later, drafting a clear letter to the policy holder. The expert system does what it is good at: checking the extracted facts against policy limits, provider directories, regulatory caps, and fraud heuristics; deciding to approve, reject, cap, or escalate; and refusing to send any letter whose claims do not match the recorded facts.\nThis is Code Mode applied to a business decision. The LLM is not deciding whether the claim pays out. The LLM is generating a structured scenario from unstructured input. The decision is made by deterministic rules that an auditor, a regulator, or a claims supervisor can read and sign off on.\nHow Does the LLM Know Tln? A reasonable worry: if the LLM has to emit Tln, does that mean every request is bloated by a giant grammar prompt? No. Tln is intentionally small. The whole grammar – enough for the LLM to write valid scenarios – fits in a system prompt of a few dozen lines:\nYou write scenarios in Tln. Tln has three top-level forms: fact \"\" { key = value, ... } // declare a fact define \"\" { } // name a condition rule \"\" { when do ... } // fire actions when a condition holds Values: string \"x\", number 42, boolean true/false, list [a, b], null. Refs: \"namespace.field\" reads from a fact. Conditions: is \"\" not is \"\" == != \u003c \u003e (also \u003c= \u003e=) in not in exists not_empty and or Actions inside `do`: set notify explain \"\" require block llm_extract into llm_draft from tone \"\" verify against send to only_if == Your job: read the input document and emit ONLY `fact` blocks. Do not write `rule` or `define` -- those are authored by the company. That is the entire prompt. Forty-odd lines. The model is now able to read an invoice, a service note, a contract, or a support ticket and emit a Tln fact block that the company’s existing rules can immediately reason over. No fine-tuning, no special model, no megabyte-long system prompt – just a tiny, deterministic grammar that the LLM treats like any other structured output format.\nThis is the second half of why Code Mode for MCP works. The language is small enough to teach in a prompt, and the LLM is constrained to the one form it is good at: producing facts. Everything else – the rules, the policies, the decisions – lives outside the prompt entirely, in the company’s expert system.\nWhy This Is the Future This, I am convinced, is the future of LLM use for business decisions without risk. Let the model write the script. Let the expert system run it. The LLM’s strength – generating structured language – becomes the bridge between unstructured human input and deterministic rules. The risk surface of “the model hallucinated a decision” disappears, because the model is no longer the one deciding. It is preparing the case file.\nFor anything that touches money, safety, or compliance, this is the architecture that scales. It is also the architecture that survives an audit – because every decision can be traced to the rule that fired and the facts that triggered it. That, paired with the EITL principle, is what makes the combination of LLMs and expert systems genuinely usable in the enterprise.\n",
+  "wordCount" : "1711",
+  "inLanguage": "en",
+  "datePublished": "2026-05-29T00:00:00Z",
+  "dateModified": "2026-05-29T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Alex Opak"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/code-mode-for-mcp/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alex Opak | Software Architect",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.svg"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Alex Opak | Software Architect (Alt + H)">Alex Opak | Software Architect</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/projects/" title="OSS Projects">
+                    <span>OSS Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      Code Mode for MCP
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-05-29 00:00:00 +0000 UTC'>May 29, 2026</span>&nbsp;·&nbsp;<span>9 min</span>&nbsp;·&nbsp;<span>Alex Opak</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#what-llms-are-good-at-and-where-they-stop" aria-label="What LLMs Are Good At, and Where They Stop">What LLMs Are Good At, and Where They Stop</a></li>
+            <li>
+                <a href="#a-claims-example" aria-label="A Claims Example">A Claims Example</a><ul>
+                    
+            <li>
+                <a href="#1-what-the-llm-generates-from-the-invoice" aria-label="1. What the LLM generates from the invoice">1. What the LLM generates from the invoice</a></li>
+            <li>
+                <a href="#2-what-the-companys-expert-rules-add-on-top" aria-label="2. What the company&rsquo;s expert rules add on top">2. What the company&rsquo;s expert rules add on top</a></li>
+            <li>
+                <a href="#3-the-llm-closes-the-loop--but-only-with-permission" aria-label="3. The LLM closes the loop &ndash; but only with permission">3. The LLM closes the loop &ndash; but only with permission</a></li></ul>
+            </li>
+            <li>
+                <a href="#how-does-the-llm-know-tln" aria-label="How Does the LLM Know Tln?">How Does the LLM Know Tln?</a></li>
+            <li>
+                <a href="#why-this-is-the-future" aria-label="Why This Is the Future">Why This Is the Future</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>LLMs have, in practice, proven their usefulness in generating program code. You cannot say that LLMs have excelled at architecture or engineering ideas &ndash; that is not their job &ndash; but generating structured code is one of their strengths. A rather interesting and reasonable question arises: can we entrust an LLM with decision-making? Or do we want binary logic to make those decisions? The question is interesting and even philosophical, because there are areas where an error in a decision will not lead to fatal consequences &ndash; for example, deciding when to clear the shoulders of rural roads. If an LLM decides to do this every two weeks, or once a month, or once every two months, it will not significantly affect traffic safety, or stormwater overflow, or anything else. But if the LLM pushes back the same schedule on a high-speed motorway, it will affect road safety. So it is becoming more and more obvious that there are questions where the good old <code>if</code> / <code>else</code> / <code>case</code> do the job much better and more precisely in the domain of decision-making and planning.</p>
+<h2 id="what-llms-are-good-at-and-where-they-stop">What LLMs Are Good At, and Where They Stop<a hidden class="anchor" aria-hidden="true" href="#what-llms-are-good-at-and-where-they-stop">#</a></h2>
+<p>An LLM can write a book (this is not a joke) using your service&rsquo;s MCP, but can it decide what to do with a transaction? An order? Obviously not. More than that &ndash; there are specialized models trained on data precisely to make such decisions, and to keep a human at the head of that process. The approach first articulated at <a href="https://blog.cloudflare.com/code-mode/">Cloudflare</a> is worth studying, and worth studying at different levels of management. What if we let the model do what it does best? Yes, exactly that: write code.</p>
+<p>An LLM can write a scenario that can then be processed &ndash; together with the company&rsquo;s rules (its expert knowledge) &ndash; and a decision can be made on top of it. This is a revolutionary idea for the use of language models. And yet linguistic communication is exactly what business decisions are made of: how many meetings with experts does it take to settle one question or another, and whether we like it or not, we use language to do it.</p>
+<h2 id="a-claims-example">A Claims Example<a hidden class="anchor" aria-hidden="true" href="#a-claims-example">#</a></h2>
+<p>Consider an example for an insurance company that processes claims. Hundreds, if not thousands, of refund requests come in &ndash; usually they are simply invoices. Can an LLM extract the information? Of course &ndash; this is a routine task for a language model paired with OCR. Then the model generates the scenario it sees, in the <a href="https://tln-lang.org/">Tln language</a>. But the insurance company has its own expert rules, and those rules can be applied on top of the LLM&rsquo;s code.</p>
+<p>Imagine a claim arrives as a PDF invoice from a clinic. The LLM reads the document, OCRs the amounts, identifies the policy holder, the diagnosis codes, the providers &ndash; and emits a Tln scenario describing what it found. The expert system then takes that scenario, checks it against policy facts, regulatory limits, fraud heuristics, and the insurer&rsquo;s own rules, and decides whether to pay, partially pay, reject, or escalate to a human.</p>
+<h3 id="1-what-the-llm-generates-from-the-invoice">1. What the LLM generates from the invoice<a hidden class="anchor" aria-hidden="true" href="#1-what-the-llm-generates-from-the-invoice">#</a></h3>
+<p>The LLM never sees the policy, never sees the rules. It only sees the document. Its job is to convert unstructured text into a structured Tln scenario &ndash; a set of facts about <em>this</em> claim:</p>
+<pre tabindex="0"><code class="language-tln" data-lang="tln">// ── Generated by the LLM from claim_invoice.pdf ─────────
 // The LLM acts as an information provider, not a decision-maker.
 
 fact &#34;claim.C-2026-04891&#34; {
@@ -16,7 +259,10 @@ fact &#34;claim.C-2026-04891&#34; {
   referral_id = &#34;REF-77120&#34;
   document_source = &#34;invoice_2026_04891.pdf&#34;
 }
-</code></pre><p>That is the entire LLM contribution: one block of facts. No decisions, no thresholds, no policy logic. If the LLM hallucinates an amount, the worst it can do is produce a wrong fact &ndash; which the expert system can still cross-check.</p><h3 id=2-what-the-companys-expert-rules-add-on-top>2. What the company&rsquo;s expert rules add on top<a hidden class=anchor aria-hidden=true href=#2-what-the-companys-expert-rules-add-on-top>#</a></h3><p>The rest of the file is written once, by the insurer, and reviewed by underwriters, lawyers, and compliance. It does not change between claims. It is the deterministic layer that makes the actual decision:</p><pre tabindex=0><code class=language-tln data-lang=tln>// ── Authored by the insurance company ───────────────────
+</code></pre><p>That is the entire LLM contribution: one block of facts. No decisions, no thresholds, no policy logic. If the LLM hallucinates an amount, the worst it can do is produce a wrong fact &ndash; which the expert system can still cross-check.</p>
+<h3 id="2-what-the-companys-expert-rules-add-on-top">2. What the company&rsquo;s expert rules add on top<a hidden class="anchor" aria-hidden="true" href="#2-what-the-companys-expert-rules-add-on-top">#</a></h3>
+<p>The rest of the file is written once, by the insurer, and reviewed by underwriters, lawyers, and compliance. It does not change between claims. It is the deterministic layer that makes the actual decision:</p>
+<pre tabindex="0"><code class="language-tln" data-lang="tln">// ── Authored by the insurance company ───────────────────
 // Policy facts, regulatory limits, and decision rules.
 // Reviewed by underwriting, legal, and compliance.
 
@@ -112,7 +358,9 @@ rule &#34;Unusual frequency from one holder&#34; {
   do require &#34;review.fraud_analyst&#34;
   do explain &#34;Holder {claim.holder_id} submitted {count} claims in 30 days&#34;
 }
-</code></pre><h3 id=3-the-llm-closes-the-loop--but-only-with-permission>3. The LLM closes the loop &ndash; but only with permission<a hidden class=anchor aria-hidden=true href=#3-the-llm-closes-the-loop--but-only-with-permission>#</a></h3><p>Once the expert system has made the decision, the LLM is allowed back in for one more task: drafting the letter to the policy holder in human language. The expert system verifies the draft against the recorded facts before anything is sent:</p><pre tabindex=0><code class=language-tln data-lang=tln>// ── LLM drafts, expert system verifies, then sends ──────
+</code></pre><h3 id="3-the-llm-closes-the-loop--but-only-with-permission">3. The LLM closes the loop &ndash; but only with permission<a hidden class="anchor" aria-hidden="true" href="#3-the-llm-closes-the-loop--but-only-with-permission">#</a></h3>
+<p>Once the expert system has made the decision, the LLM is allowed back in for one more task: drafting the letter to the policy holder in human language. The expert system verifies the draft against the recorded facts before anything is sent:</p>
+<pre tabindex="0"><code class="language-tln" data-lang="tln">// ── LLM drafts, expert system verifies, then sends ──────
 
 rule &#34;Draft explanation letter, verify, then send&#34; {
   when &#34;claim.decision&#34; in [&#34;approved&#34;, &#34;rejected&#34;, &#34;capped&#34;]
@@ -120,41 +368,200 @@ rule &#34;Draft explanation letter, verify, then send&#34; {
   do verify &#34;letter&#34; against &#34;claim.decision_facts&#34;
   do send &#34;letter&#34; to &#34;claim.holder_id&#34; only_if &#34;verify.passed&#34; == true
 }
-</code></pre><p>Look at the division of labor. The LLM does what an LLM is genuinely good at: reading a messy invoice in any language, pulling out amounts, dates, provider IDs, diagnosis codes; and later, drafting a clear letter to the policy holder. The expert system does what <em>it</em> is good at: checking the extracted facts against policy limits, provider directories, regulatory caps, and fraud heuristics; deciding to approve, reject, cap, or escalate; and refusing to send any letter whose claims do not match the recorded facts.</p><p>This is Code Mode applied to a business decision. The LLM is not deciding whether the claim pays out. The LLM is generating a structured scenario from unstructured input. The decision is made by deterministic rules that an auditor, a regulator, or a claims supervisor can read and sign off on.</p><h2 id=how-does-the-llm-know-tln>How Does the LLM Know Tln?<a hidden class=anchor aria-hidden=true href=#how-does-the-llm-know-tln>#</a></h2><p>A reasonable worry: if the LLM has to emit Tln, does that mean every request is bloated by a giant grammar prompt? No. Tln is intentionally small. The whole grammar &ndash; enough for the LLM to write valid scenarios &ndash; fits in a system prompt of a few dozen lines:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>You write scenarios in Tln. Tln has three top-level forms:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  fact &#34;&lt;name&gt;&#34; { key = value, ... }       // declare a fact
-</span></span><span style=display:flex><span>  define &#34;&lt;name&gt;&#34; { &lt;condition expr&gt; }     // name a condition
-</span></span><span style=display:flex><span>  rule &#34;&lt;name&gt;&#34; { when &lt;cond&gt; do &lt;act&gt;... } // fire actions when a condition holds
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Values: string &#34;x&#34;, number 42, boolean true/false, list [a, b], null.
-</span></span><span style=display:flex><span>Refs:   &#34;namespace.field&#34; reads from a fact.
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Conditions:
-</span></span><span style=display:flex><span>  is &#34;&lt;name&gt;&#34;              not is &#34;&lt;name&gt;&#34;
-</span></span><span style=display:flex><span>  &lt;ref&gt; == &lt;value&gt;         &lt;ref&gt; != &lt;value&gt;
-</span></span><span style=display:flex><span>  &lt;ref&gt; &lt; &lt;value&gt;          &lt;ref&gt; &gt; &lt;value&gt;   (also &lt;= &gt;=)
-</span></span><span style=display:flex><span>  &lt;ref&gt; in &lt;list&gt;          &lt;ref&gt; not in &lt;list&gt;
-</span></span><span style=display:flex><span>  &lt;ref&gt; exists             &lt;ref&gt; not_empty
-</span></span><span style=display:flex><span>  &lt;cond&gt; and &lt;cond&gt;        &lt;cond&gt; or &lt;cond&gt;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Actions inside `do`:
-</span></span><span style=display:flex><span>  set &lt;ref&gt; &lt;value&gt;
-</span></span><span style=display:flex><span>  notify &lt;channel&gt; &lt;message&gt;
-</span></span><span style=display:flex><span>  explain &#34;&lt;text with {ref} interpolation&gt;&#34;
-</span></span><span style=display:flex><span>  require &lt;reviewer&gt;
-</span></span><span style=display:flex><span>  block &lt;action&gt;
-</span></span><span style=display:flex><span>  llm_extract &lt;ref&gt; into &lt;ref&gt;
-</span></span><span style=display:flex><span>  llm_draft &lt;ref&gt; from &lt;ref&gt; tone &#34;&lt;tone&gt;&#34;
-</span></span><span style=display:flex><span>  verify &lt;ref&gt; against &lt;ref&gt;
-</span></span><span style=display:flex><span>  send &lt;ref&gt; to &lt;ref&gt; only_if &lt;ref&gt; == &lt;value&gt;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Your job: read the input document and emit ONLY `fact` blocks.
-</span></span><span style=display:flex><span>Do not write `rule` or `define` -- those are authored by the company.
-</span></span></code></pre></div><p>That is the entire prompt. Forty-odd lines. The model is now able to read an invoice, a service note, a contract, or a support ticket and emit a Tln <code>fact</code> block that the company&rsquo;s existing rules can immediately reason over. No fine-tuning, no special model, no megabyte-long system prompt &ndash; just a tiny, deterministic grammar that the LLM treats like any other structured output format.</p><p>This is the second half of why Code Mode for MCP works. The language is small enough to teach in a prompt, and the LLM is constrained to the one form it is good at: producing facts. Everything else &ndash; the rules, the policies, the decisions &ndash; lives outside the prompt entirely, in the company&rsquo;s expert system.</p><h2 id=why-this-is-the-future>Why This Is the Future<a hidden class=anchor aria-hidden=true href=#why-this-is-the-future>#</a></h2><p>This, I am convinced, is the future of LLM use for business decisions without risk. Let the model write the script. Let the expert system run it. The LLM&rsquo;s strength &ndash; generating structured language &ndash; becomes the bridge between unstructured human input and deterministic rules. The risk surface of &ldquo;the model hallucinated a decision&rdquo; disappears, because the model is no longer the one deciding. It is preparing the case file.</p><p>For anything that touches money, safety, or compliance, this is the architecture that scales. It is also the architecture that survives an audit &ndash; because every decision can be traced to the rule that fired and the facts that triggered it. That, paired with the <a href=https://opakalex.github.io/posts/expert-in-the-loop/>EITL principle</a>, is what makes the combination of LLMs and expert systems genuinely usable in the enterprise.</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://opakalex.github.io/tags/ai/>AI</a></li><li><a href=https://opakalex.github.io/tags/mcp/>MCP</a></li><li><a href=https://opakalex.github.io/tags/code-mode/>Code Mode</a></li><li><a href=https://opakalex.github.io/tags/expert-systems/>Expert Systems</a></li><li><a href=https://opakalex.github.io/tags/tln/>Tln</a></li><li><a href=https://opakalex.github.io/tags/opentalon/>OpenTalon</a></li><li><a href=https://opakalex.github.io/tags/llm/>LLM</a></li><li><a href=https://opakalex.github.io/tags/eitl/>EITL</a></li></ul><nav class=paginav><a class=prev href=https://opakalex.github.io/posts/human-in-the-loop-vigilance/><span class=title>« Prev</span>
-<span>Human-in-the-Loop, the Business-Comfort Zone, and Vigilance Theory</span>
-</a><a class=next href=https://opakalex.github.io/posts/enterprise-ai-orchestration/><span class=title>Next »</span>
-<span>Enterprise AI Orchestration</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://opakalex.github.io/>Alex Opak | Software Architect</a></span> ·
-<span>Powered by
-<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
-</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
+</code></pre><p>Look at the division of labor. The LLM does what an LLM is genuinely good at: reading a messy invoice in any language, pulling out amounts, dates, provider IDs, diagnosis codes; and later, drafting a clear letter to the policy holder. The expert system does what <em>it</em> is good at: checking the extracted facts against policy limits, provider directories, regulatory caps, and fraud heuristics; deciding to approve, reject, cap, or escalate; and refusing to send any letter whose claims do not match the recorded facts.</p>
+<p>This is Code Mode applied to a business decision. The LLM is not deciding whether the claim pays out. The LLM is generating a structured scenario from unstructured input. The decision is made by deterministic rules that an auditor, a regulator, or a claims supervisor can read and sign off on.</p>
+<h2 id="how-does-the-llm-know-tln">How Does the LLM Know Tln?<a hidden class="anchor" aria-hidden="true" href="#how-does-the-llm-know-tln">#</a></h2>
+<p>A reasonable worry: if the LLM has to emit Tln, does that mean every request is bloated by a giant grammar prompt? No. Tln is intentionally small. The whole grammar &ndash; enough for the LLM to write valid scenarios &ndash; fits in a system prompt of a few dozen lines:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>You write scenarios in Tln. Tln has three top-level forms:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  fact &#34;&lt;name&gt;&#34; { key = value, ... }       // declare a fact
+</span></span><span style="display:flex;"><span>  define &#34;&lt;name&gt;&#34; { &lt;condition expr&gt; }     // name a condition
+</span></span><span style="display:flex;"><span>  rule &#34;&lt;name&gt;&#34; { when &lt;cond&gt; do &lt;act&gt;... } // fire actions when a condition holds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Values: string &#34;x&#34;, number 42, boolean true/false, list [a, b], null.
+</span></span><span style="display:flex;"><span>Refs:   &#34;namespace.field&#34; reads from a fact.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span>  is &#34;&lt;name&gt;&#34;              not is &#34;&lt;name&gt;&#34;
+</span></span><span style="display:flex;"><span>  &lt;ref&gt; == &lt;value&gt;         &lt;ref&gt; != &lt;value&gt;
+</span></span><span style="display:flex;"><span>  &lt;ref&gt; &lt; &lt;value&gt;          &lt;ref&gt; &gt; &lt;value&gt;   (also &lt;= &gt;=)
+</span></span><span style="display:flex;"><span>  &lt;ref&gt; in &lt;list&gt;          &lt;ref&gt; not in &lt;list&gt;
+</span></span><span style="display:flex;"><span>  &lt;ref&gt; exists             &lt;ref&gt; not_empty
+</span></span><span style="display:flex;"><span>  &lt;cond&gt; and &lt;cond&gt;        &lt;cond&gt; or &lt;cond&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Actions inside `do`:
+</span></span><span style="display:flex;"><span>  set &lt;ref&gt; &lt;value&gt;
+</span></span><span style="display:flex;"><span>  notify &lt;channel&gt; &lt;message&gt;
+</span></span><span style="display:flex;"><span>  explain &#34;&lt;text with {ref} interpolation&gt;&#34;
+</span></span><span style="display:flex;"><span>  require &lt;reviewer&gt;
+</span></span><span style="display:flex;"><span>  block &lt;action&gt;
+</span></span><span style="display:flex;"><span>  llm_extract &lt;ref&gt; into &lt;ref&gt;
+</span></span><span style="display:flex;"><span>  llm_draft &lt;ref&gt; from &lt;ref&gt; tone &#34;&lt;tone&gt;&#34;
+</span></span><span style="display:flex;"><span>  verify &lt;ref&gt; against &lt;ref&gt;
+</span></span><span style="display:flex;"><span>  send &lt;ref&gt; to &lt;ref&gt; only_if &lt;ref&gt; == &lt;value&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Your job: read the input document and emit ONLY `fact` blocks.
+</span></span><span style="display:flex;"><span>Do not write `rule` or `define` -- those are authored by the company.
+</span></span></code></pre></div><p>That is the entire prompt. Forty-odd lines. The model is now able to read an invoice, a service note, a contract, or a support ticket and emit a Tln <code>fact</code> block that the company&rsquo;s existing rules can immediately reason over. No fine-tuning, no special model, no megabyte-long system prompt &ndash; just a tiny, deterministic grammar that the LLM treats like any other structured output format.</p>
+<p>This is the second half of why Code Mode for MCP works. The language is small enough to teach in a prompt, and the LLM is constrained to the one form it is good at: producing facts. Everything else &ndash; the rules, the policies, the decisions &ndash; lives outside the prompt entirely, in the company&rsquo;s expert system.</p>
+<h2 id="why-this-is-the-future">Why This Is the Future<a hidden class="anchor" aria-hidden="true" href="#why-this-is-the-future">#</a></h2>
+<p>This, I am convinced, is the future of LLM use for business decisions without risk. Let the model write the script. Let the expert system run it. The LLM&rsquo;s strength &ndash; generating structured language &ndash; becomes the bridge between unstructured human input and deterministic rules. The risk surface of &ldquo;the model hallucinated a decision&rdquo; disappears, because the model is no longer the one deciding. It is preparing the case file.</p>
+<p>For anything that touches money, safety, or compliance, this is the architecture that scales. It is also the architecture that survives an audit &ndash; because every decision can be traced to the rule that fired and the facts that triggered it. That, paired with the <a href="https://opakalex.github.io/posts/expert-in-the-loop/">EITL principle</a>, is what makes the combination of LLMs and expert systems genuinely usable in the enterprise.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/ai/">AI</a></li>
+      <li><a href="http://localhost:1313/tags/mcp/">MCP</a></li>
+      <li><a href="http://localhost:1313/tags/code-mode/">Code Mode</a></li>
+      <li><a href="http://localhost:1313/tags/expert-systems/">Expert Systems</a></li>
+      <li><a href="http://localhost:1313/tags/tln/">Tln</a></li>
+      <li><a href="http://localhost:1313/tags/opentalon/">OpenTalon</a></li>
+      <li><a href="http://localhost:1313/tags/llm/">LLM</a></li>
+      <li><a href="http://localhost:1313/tags/eitl/">EITL</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/human-in-the-loop-vigilance/">
+    <span class="title">« Prev</span>
+    <span>Human-in-the-Loop, the Business-Comfort Zone, and Vigilance Theory</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/enterprise-ai-orchestration/">
+    <span class="title">Next »</span>
+    <span>Enterprise AI Orchestration</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Alex Opak | Software Architect</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

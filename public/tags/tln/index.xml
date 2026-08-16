@@ -1,1 +1,61 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Tln on Alex Opak | Software Architect</title><link>https://opakalex.github.io/tags/tln/</link><description>Recent content in Tln on Alex Opak | Software Architect</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 28 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://opakalex.github.io/tags/tln/index.xml" rel="self" type="application/rss+xml"/><item><title>Deterministic Where It Matters</title><link>https://opakalex.github.io/posts/deterministic-agent-pipeline/</link><pubDate>Tue, 28 Jul 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/deterministic-agent-pipeline/</guid><description>LLMs are probabilistic by nature &amp;ndash; probability buys flexibility, never 100% accuracy. So can a Tln + LLM agent pipeline promise same input, same output? The honest answer is a split: the decision core is provably deterministic, the LLM edge is only reproducible. Determinism comes from architecture, not from taming the model.</description></item><item><title>Human-in-the-Loop, the Business-Comfort Zone, and Vigilance Theory</title><link>https://opakalex.github.io/posts/human-in-the-loop-vigilance/</link><pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/human-in-the-loop-vigilance/</guid><description>Human-in-the-Loop is sold as a quality guarantee for AI decisions. In practice it is a business-comfort zone &amp;ndash; a place where a living person carries the responsibility for decisions they do not actually control.</description></item><item><title>Code Mode for MCP</title><link>https://opakalex.github.io/posts/code-mode-for-mcp/</link><pubDate>Fri, 29 May 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/code-mode-for-mcp/</guid><description>LLMs are excellent at writing code, but bad at making business decisions. Cloudflare&amp;rsquo;s Code Mode idea &amp;ndash; let the model write the script, and let an expert system run it &amp;ndash; is a natural fit for EITL. A claims-processing example in the Tln language.</description></item><item><title>Enterprise AI Orchestration</title><link>https://opakalex.github.io/posts/enterprise-ai-orchestration/</link><pubDate>Thu, 28 May 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/enterprise-ai-orchestration/</guid><description>Managing AI agents in the enterprise means solving for security, knowledge access, and orchestration at the same time. A look at OpenTalon &amp;ndash; an EITL-first framework that combines LLMs with expert rules for corporate AI architecture.</description></item><item><title>LLM, Neural Network, or Expert System?</title><link>https://opakalex.github.io/posts/llm-neural-network-or-expert-system/</link><pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/llm-neural-network-or-expert-system/</guid><description>Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters &amp;ndash; and how the real world runs on it.</description></item><item><title>Expert in the Loop (EITL)</title><link>https://opakalex.github.io/posts/expert-in-the-loop/</link><pubDate>Wed, 13 May 2026 00:00:00 +0000</pubDate><guid>https://opakalex.github.io/posts/expert-in-the-loop/</guid><description>Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop (EITL) with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tln on Alex Opak | Software Architect</title>
+    <link>http://localhost:1313/tags/tln/</link>
+    <description>Recent content in Tln on Alex Opak | Software Architect</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tln/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tln: Why a New Language?</title>
+      <link>http://localhost:1313/posts/tln-why-a-new-language/</link>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/tln-why-a-new-language/</guid>
+      <description>The world moves faster than it did in 1995. Prolog gave us a beautiful way to reason over facts, but it was built for a world without LLMs, without live data feeds, without MCP. Tln is a modern reimagining of the expert-system language &amp;ndash; deterministic, testable, data-native, and built to sit next to a language model rather than pretend one doesn&amp;rsquo;t exist.</description>
+    </item>
+    <item>
+      <title>Deterministic Where It Matters</title>
+      <link>http://localhost:1313/posts/deterministic-agent-pipeline/</link>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/deterministic-agent-pipeline/</guid>
+      <description>LLMs are probabilistic by nature &amp;ndash; probability buys flexibility, never 100% accuracy. So can a Tln + LLM agent pipeline promise same input, same output? The honest answer is a split: the decision core is provably deterministic, the LLM edge is only reproducible. Determinism comes from architecture, not from taming the model.</description>
+    </item>
+    <item>
+      <title>Human-in-the-Loop, the Business-Comfort Zone, and Vigilance Theory</title>
+      <link>http://localhost:1313/posts/human-in-the-loop-vigilance/</link>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/human-in-the-loop-vigilance/</guid>
+      <description>Human-in-the-Loop is sold as a quality guarantee for AI decisions. In practice it is a business-comfort zone &amp;ndash; a place where a living person carries the responsibility for decisions they do not actually control.</description>
+    </item>
+    <item>
+      <title>Code Mode for MCP</title>
+      <link>http://localhost:1313/posts/code-mode-for-mcp/</link>
+      <pubDate>Fri, 29 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/code-mode-for-mcp/</guid>
+      <description>LLMs are excellent at writing code, but bad at making business decisions. Cloudflare&amp;rsquo;s Code Mode idea &amp;ndash; let the model write the script, and let an expert system run it &amp;ndash; is a natural fit for EITL. A claims-processing example in the Tln language.</description>
+    </item>
+    <item>
+      <title>Enterprise AI Orchestration</title>
+      <link>http://localhost:1313/posts/enterprise-ai-orchestration/</link>
+      <pubDate>Thu, 28 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/enterprise-ai-orchestration/</guid>
+      <description>Managing AI agents in the enterprise means solving for security, knowledge access, and orchestration at the same time. A look at OpenTalon &amp;ndash; an EITL-first framework that combines LLMs with expert rules for corporate AI architecture.</description>
+    </item>
+    <item>
+      <title>LLM, Neural Network, or Expert System?</title>
+      <link>http://localhost:1313/posts/llm-neural-network-or-expert-system/</link>
+      <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/llm-neural-network-or-expert-system/</guid>
+      <description>Each kind of system makes a different kind of decision. LLMs generate language, neural networks find patterns, expert systems make the call. A look at why the boundary matters &amp;ndash; and how the real world runs on it.</description>
+    </item>
+    <item>
+      <title>Expert in the Loop (EITL)</title>
+      <link>http://localhost:1313/posts/expert-in-the-loop/</link>
+      <pubDate>Wed, 13 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/expert-in-the-loop/</guid>
+      <description>Why Human-in-the-Loop (HITL) is a bottleneck, and how Expert-in-the-Loop (EITL) with deterministic expert systems alongside LLMs offers a better paradigm for AI-driven decision making.</description>
+    </item>
+  </channel>
+</rss>
