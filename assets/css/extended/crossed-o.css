@@ -1,0 +1,24 @@
+.x-o {
+  position: relative;
+  display: inline-block;
+}
+
+.x-o::before,
+.x-o::after {
+  content: "";
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: 50%;
+  height: 0.08em;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.x-o::before {
+  transform: rotate(45deg);
+}
+
+.x-o::after {
+  transform: rotate(-45deg);
+}

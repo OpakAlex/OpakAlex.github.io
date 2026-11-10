@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="t d" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">Developers felt faster with AI, but were slower</title>
+  <desc id="d">METR 2025 randomized study of 16 experienced open-source developers on 246 tasks. Before the study they forecast AI would cut completion time by 24 percent. Afterwards they estimated it cut time by 20 percent. Measured: AI increased completion time by 19 percent.</desc>
+  <rect width="720" height="300" rx="12" fill="#fcfcfb"/>
+  <text x="24" y="36" font-size="18" font-weight="600" fill="#0b0b0b">Developers felt faster with AI. They were slower.</text>
+  <text x="24" y="58" font-size="13" fill="#52514e">Change in task completion time when AI is allowed (left = faster, right = slower)</text>
+
+  <!-- grid -->
+  <g stroke="#e4e3df" stroke-width="1">
+    <line x1="240" y1="84" x2="240" y2="236"/>
+    <line x1="300" y1="84" x2="300" y2="236"/>
+    <line x1="360" y1="84" x2="360" y2="236"/>
+    <line x1="480" y1="84" x2="480" y2="236"/>
+    <line x1="540" y1="84" x2="540" y2="236"/>
+  </g>
+  <g font-size="11" fill="#52514e" text-anchor="middle">
+    <text x="240" y="252">−30%</text>
+    <text x="300" y="252">−20%</text>
+    <text x="360" y="252">−10%</text>
+    <text x="420" y="252">0</text>
+    <text x="480" y="252">+10%</text>
+    <text x="540" y="252">+20%</text>
+  </g>
+
+  <!-- row labels -->
+  <g font-size="13" fill="#0b0b0b">
+    <text x="24" y="109">Forecast before</text>
+    <text x="24" y="159">Self-estimate after</text>
+    <text x="24" y="209" font-weight="600">Measured</text>
+  </g>
+
+  <!-- bars: 6px per percentage point, zero at x=420 -->
+  <rect x="276" y="90" width="144" height="28" rx="4" fill="#2a78d6"/>
+  <rect x="300" y="140" width="120" height="28" rx="4" fill="#2a78d6"/>
+  <rect x="420" y="190" width="114" height="28" rx="4" fill="#eb6834"/>
+
+  <g font-size="13" font-weight="600" fill="#0b0b0b">
+    <text x="268" y="109" text-anchor="end">−24%</text>
+    <text x="292" y="159" text-anchor="end">−20%</text>
+    <text x="542" y="209">+19%</text>
+  </g>
+
+  <line x1="420" y1="84" x2="420" y2="236" stroke="#52514e" stroke-width="1.5"/>
+
+  <text x="24" y="282" font-size="11" fill="#52514e">Source: METR (2025), randomized study, arXiv:2507.09089 · 16 experienced open-source developers, 246 tasks.</text>
+</svg>
